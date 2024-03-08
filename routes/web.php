@@ -27,6 +27,6 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::resources([
     'roles' => RoleController::class,
-    'user' => UserController::class,
+    'users' => UserController::class,
     'juguetes' => JugueteController::class
 ]);

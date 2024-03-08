@@ -16,5 +16,5 @@ class Juguete extends Model
         'ean13',
         'precio',
         'stock'
-    ]
+    ];
 }
