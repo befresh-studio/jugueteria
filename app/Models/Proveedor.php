@@ -18,4 +18,8 @@ class Proveedor extends Model
         'telefono',
         'observaciones'
     ];
+
+    public function compras() {
+        return $this->hasMany(Compra::class);
+    }
 }

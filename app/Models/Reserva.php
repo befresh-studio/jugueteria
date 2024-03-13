@@ -14,4 +14,12 @@ class Reserva extends Model
         'importe_pagado',
         'clientes_id'
     ];
+
+    public function cliente() {
+        return $this->belongsTo(Cliente::class);
+    }
+
+    public function juguetes() {
+        return $this->belongsToMany(Juguete::class);
+    }
 }

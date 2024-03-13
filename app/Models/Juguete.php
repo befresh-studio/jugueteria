@@ -17,4 +17,24 @@ class Juguete extends Model
         'precio',
         'stock'
     ];
+
+    public function reservas() {
+        return $this->belongsToMany(Reserva::class);
+    }
+
+    public function ventas() {
+        return $this->belongsToMany(Venta::class);
+    }
+
+    public function categorias() {
+        return $this->belongsToMany(Categoria::class);
+    }
+
+    public function compras() {
+        return $this->belongsToMany(Compra::class);
+    }
+
+    public function proveedores() {
+        return $this->belongsToMany(Proveedor::class);
+    }
 }

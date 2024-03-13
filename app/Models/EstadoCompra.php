@@ -13,4 +13,8 @@ class EstadoCompra extends Model
         'estado',
         'color'
     ];
+
+    public function compras() {
+        return $this->belongsToMany(Compra::class);
+    }
 }

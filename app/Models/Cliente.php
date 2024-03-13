@@ -16,4 +16,12 @@ class Cliente extends Model
         'email',
         'observaciones'
     ];
+
+    public function reservas() {
+        return $this->hasMany(Reserva::class);
+    }
+
+    public function ventas() {
+        return $this->hasMany(Venta::class);
+    }
 }

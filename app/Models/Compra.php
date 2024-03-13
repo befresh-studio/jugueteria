@@ -16,4 +16,16 @@ class Compra extends Model
         'iva',
         'proveedores_id'
     ];
+
+    public function proveedor() {
+        return $this->belongsTo(Proveedor::class);
+    }
+
+    public function juguetes() {
+        return $this->belongsToMany(Juguete::class);
+    }
+
+    public function estados() {
+        return $this->belongsToMany(EstadoCompra::class);
+    }
 }

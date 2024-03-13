@@ -15,4 +15,16 @@ class Venta extends Model
         'iva',
         'clientes_id'
     ];
+
+    public function cliente() {
+        return $this->belongsTo(Cliente::class);
+    }
+
+    public function estados() {
+        return $this->belongsToMany(EstadoVenta::class);
+    }
+
+    public function juguetes() {
+        return $this->belongsToMany(Juguete::class);
+    }
 }
