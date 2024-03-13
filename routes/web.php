@@ -5,6 +5,14 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\JugueteController;
+use App\Http\Controllers\ProveedorController;
+use App\Http\Controllers\CompraController;
+use App\Http\Controllers\EstadoCompraController;
+use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\VentaController;
+use App\Http\Controllers\EstadoVentaController;
+use App\Http\Controllers\ReservaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,5 +36,13 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::resources([
     'roles' => RoleController::class,
     'users' => UserController::class,
-    'juguetes' => JugueteController::class
+    'juguetes' => JugueteController::class,
+    'proveedores' => ProveedorController::class,
+    'compras' => CompraController::class,
+    'estado_compras' => EstadoCompraController::class,
+    'categorias' => CategoriaController::class,
+    'clientes' => CategoriaController::class,
+    'ventas' => CategoriaController::class,
+    'estado_ventas' => EstadoVentaController::class,
+    'reservas' => EstadoVentaController::class,
 ]);
