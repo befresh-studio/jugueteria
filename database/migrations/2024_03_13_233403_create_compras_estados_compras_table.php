@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('compras_estados_compras', function (Blueprint $table) {
             $table->id();
             $table->foreignId('compras_id')->references('id')->on('compras')->onDelete('cascade');
-            $table->foreignId('estados_compras_id')->references('id')->on('estados_compras')->onDelete('cascade');
+            $table->foreignId('estado_compras_id')->references('id')->on('estado_compras')->onDelete('cascade');
             $table->timestamps();
         });
     }
