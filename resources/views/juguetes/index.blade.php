@@ -44,7 +44,7 @@
                     </td>
                 </tr>
                 @empty
-                    <td colspan="4">
+                    <td colspan="6">
                         <span class="text-danger">
                             <strong>{{ __('No hay juguetes') }}</strong>
                         </span>

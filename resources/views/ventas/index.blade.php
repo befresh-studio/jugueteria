@@ -2,58 +2,58 @@
 
 @section('content')
 <div class="card">
-    <div class="card-header">{{ __('Listado de juguetes') }}</div>
+    <div class="card-header">{{ __('Listado de ventas') }}</div>
     <div class="card-body">
-        @can('create-juguete')
-            <a href="{{ route('juguetes.create') }}" class="btn btn-success btn-sm my-2"><i class="bi bi-plus-circle"></i> {{ __('Insertar nuevo juguete') }}</a>
+        @can('create-venta')
+            <a href="{{ route('ventas.create') }}" class="btn btn-success btn-sm my-2"><i class="bi bi-plus-circle"></i> {{ __('Insertar nueva venta') }}</a>
         @endcan
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
-                <th scope="col">{{ __('ID') }}</th>
-                <th scope="col">{{ __('Imagen') }}</th>
-                <th scope="col">{{ __('Nombre') }}</th>
-                <th scope="col">{{ __('Referencia') }}</th>
-                <th scope="col">{{ __('EAN13') }}</th>
-                <th scope="col">{{ __('Acciones') }}</th>
+                    <th scope="col">{{ __('ID') }}</th>
+                    <th scope="col">{{ __('Referencia') }}</th>
+                    <th scope="col">{{ __('Cliente') }}</th>
+                    <th scope="col">{{ __('IVA') }}</th>
+                    <th scope="col">{{ __('Importe total') }}</th>
+                    <th scope="col">{{ __('Acciones') }}</th>
                 </tr>
             </thead>
             <tbody>
-                @forelse ($juguetes as $juguete)
+                @forelse ($ventas as $venta)
                 <tr>
-                    <th scope="row">{{ $juguete->id }}</th>
-                    <td>{{ $juguete->imagen }}</td>
-                    <td>{{ $juguete->nombre }}</td>
-                    <td>{{ $juguete->referencia }}</td>
-                    <td>{{ $juguete->ean13 }}</td>
+                    <th scope="row">{{ $venta->id }}</th>
+                    <td>{{ $venta->referencia }}</td>
+                    <td>{{ $venta->cliente->nombre }} {{ $venta->cliente->apellidos }}</td>
+                    <td>{{ $venta->iva }}</td>
+                    <td>{{ $venta->importe_total }}</td>
                     <td>
-                        <form action="{{ route('juguetes.destroy', $juguete->id) }}" method="post">
+                        <form action="{{ route('ventas.destroy', $venta->id) }}" method="post">
                             @csrf
                             @method('DELETE')
 
-                            <a href="{{ route('juguetes.show', $juguete->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-eye"></i> {{ __('Ver') }}</a>
+                            <a href="{{ route('ventas.show', $venta->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-eye"></i> {{ __('Ver') }}</a>
 
-                            @can('edit-juguete')
-                                <a href="{{ route('juguetes.edit', $juguete->id) }}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> {{ __('Editar') }}</a>
+                            @can('edit-venta')
+                                <a href="{{ route('ventas.edit', $venta->id) }}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> {{ __('Editar') }}</a>
                             @endcan
 
-                            @can('delete-juguete')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('{{ __('¿Quieres borrar este juguete?') }}');"><i class="bi bi-trash"></i> {{ __('Borrar') }}</button>
+                            @can('delete-venta')
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('{{ __('¿Quieres borrar esta venta?') }}');"><i class="bi bi-trash"></i> {{ __('Borrar') }}</button>
                             @endcan
                         </form>
                     </td>
                 </tr>
                 @empty
-                    <td colspan="4">
+                    <td colspan="6">
                         <span class="text-danger">
-                            <strong>{{ __('No hay juguetes') }}</strong>
+                            <strong>{{ __('No hay ventas') }}</strong>
                         </span>
                     </td>
                 @endforelse
             </tbody>
         </table>
 
-        {{ $juguetes->links() }}
+        {{ $ventas->links() }}
 
     </div>
 </div>

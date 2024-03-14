@@ -44,20 +44,35 @@
                                 </li>
                             @endif
 
-                            @if (Route::has('register'))
+                            {{--@if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
-                            @endif
+                            @endif--}}
                         @else
                             @canany(['create-role', 'edit-role', 'delete-role'])
-                                <li><a class="nav-link" href="{{ route('roles.index') }}">Manage Roles</a></li>
+                                <li><a class="nav-link" href="{{ route('roles.index') }}">{{ __('Roles') }}</a></li>
                             @endcanany
                             @canany(['create-user', 'edit-user', 'delete-user'])
-                                <li><a class="nav-link" href="{{ route('users.index') }}">Manage Users</a></li>
+                                <li><a class="nav-link" href="{{ route('users.index') }}">{{ __('Usuarios') }}</a></li>
                             @endcanany
                             @canany(['create-juguete', 'edit-juguete', 'delete-juguete'])
-                                <li><a class="nav-link" href="{{ route('juguetes.index') }}">Manage Juguetes</a></li>
+                                <li><a class="nav-link" href="{{ route('juguetes.index') }}">{{ __('Juguetes') }}</a></li>
+                            @endcanany
+                            @canany(['create-categoria', 'edit-categoria', 'delete-categoria'])
+                                <li><a class="nav-link" href="{{ route('categorias.index') }}">{{ __('Categorías') }}</a></li>
+                            @endcanany
+                            @canany(['create-cliente', 'edit-cliente', 'delete-cliente'])
+                                <li><a class="nav-link" href="{{ route('clientes.index') }}">{{ __('Clientes') }}</a></li>
+                            @endcanany
+                            @canany(['create-proveedor', 'edit-proveedor', 'delete-proveedor'])
+                                <li><a class="nav-link" href="{{ route('proveedores.index') }}">{{ __('Proveedores') }}</a></li>
+                            @endcanany
+                            @canany(['create-compra', 'edit-compra', 'delete-compra'])
+                                <li><a class="nav-link" href="{{ route('compras.index') }}">{{ __('Compras') }}</a></li>
+                            @endcanany
+                            @canany(['create-venta', 'edit-venta', 'delete-venta'])
+                                <li><a class="nav-link" href="{{ route('ventas.index') }}">{{ __('Ventas') }}</a></li>
                             @endcanany
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -93,17 +108,11 @@
                             </div>
                         @endif
 
-                        <h3 class="text-center mt-3 mb-3">Simple Laravel 10 User Roles and Permissions - <a href="https://www.allphptricks.com/">AllPHPTricks.com</a></h3>
                         @yield('content')
                         
                         <div class="row justify-content-center text-center mt-3">
                             <div class="col-md-12">
-                                <p>Back to Tutorial: 
-                                    <a href="https://www.allphptricks.com/simple-laravel-10-user-roles-and-permissions/"><strong>Tutorial Link</strong></a>
-                                </p>
-                                <p>
-                                    For More Web Development Tutorials Visit: <a href="https://www.allphptricks.com/"><strong>AllPHPTricks.com</strong></a>
-                                </p>
+                                <p>Copyright © 2024</p>
                             </div>
                         </div>
 

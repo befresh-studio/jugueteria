@@ -41,8 +41,8 @@ Route::resources([
     'compras' => CompraController::class,
     'estado_compras' => EstadoCompraController::class,
     'categorias' => CategoriaController::class,
-    'clientes' => CategoriaController::class,
-    'ventas' => CategoriaController::class,
+    'clientes' => ClienteController::class,
+    'ventas' => VentaController::class,
     'estado_ventas' => EstadoVentaController::class,
-    'reservas' => EstadoVentaController::class,
+    'reservas' => ReservaController::class,
 ]);
