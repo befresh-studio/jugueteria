@@ -45,6 +45,14 @@ class JugueteController extends Controller
      */
     public function store(StoreJugueteRequest $request): RedirectResponse
     {
+        // $nombre_imagen = time().'.'.$request->fichero->extension();
+        // $request->file('fichero')->storeAs('juguetes', $nombre_imagen);
+        $path = $request->file('fichero')->store('juguetes', ['disk' => 'public']);
+
+        $request['precio'] = str_replace(',', '.', $request['precio']);
+        //$request['imagen'] = $nombre_imagen;
+        $request['imagen'] = $path;
+
         Juguete::create($request->all());
 
         return redirect()->route('juguetes.index')->withSuccess('Nuevo juguete creado correctamente.');
@@ -75,7 +83,15 @@ class JugueteController extends Controller
      */
     public function update(UpdateJugueteRequest $request, Juguete $juguete): RedirectResponse
     {
+        if($request->file('fichero')) {
+            $path = $request->file('fichero')->store('juguetes');
+            $request['imagen'] = $path;
+        }
+
+        $request['precio'] = str_replace(',', '.', $request['precio']); 
+
         $juguete->update($request->all());
+
         return redirect()->back()->withSuccess('Juguete actualizado correctamente.');
     }
 

@@ -15,15 +15,15 @@
                 </div>
             </div>
             <div class="card-body">
-                <form action="{{ route('juguetes.store') }}" method="post">
+                <form action="{{ route('juguetes.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
 
                     <div class="mb-3 row">
-                        <label for="imagen" class="col-md-4 col-form-label text-md-end text-start">{{ __('Imagen') }}</label>
+                        <label for="fichero" class="col-md-4 col-form-label text-md-end text-start">{{ __('Imagen') }}</label>
                         <div class="col-md-6">
-                          <input type="imagen" class="form-control @error('imagen') is-invalid @enderror" id="imagen" name="imagen" value="{{ old('imagen') }}">
-                            @if ($errors->has('imagen'))
-                                <span class="text-danger">{{ $errors->first('imagen') }}</span>
+                          <input type="file" class="form-control @error('fichero') is-invalid @enderror" id="fichero" name="fichero" value="{{ old('fichero') }}">
+                            @if ($errors->has('fichero'))
+                                <span class="text-danger">{{ $errors->first('fichero') }}</span>
                             @endif
                         </div>
                     </div>
@@ -54,6 +54,26 @@
                           <input type="text" class="form-control @error('ean13') is-invalid @enderror" id="ean13" name="ean13" value="{{ old('ean13') }}">
                             @if ($errors->has('ean13'))
                                 <span class="text-danger">{{ $errors->first('ean13') }}</span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="precio" class="col-md-4 col-form-label text-md-end text-start">{{ __('Precio') }}</label>
+                        <div class="col-md-6">
+                          <input type="text" class="form-control @error('precio') is-invalid @enderror" id="precio" name="precio" value="{{ old('precio') }}">
+                            @if ($errors->has('precio'))
+                                <span class="text-danger">{{ $errors->first('precio') }}</span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="stock" class="col-md-4 col-form-label text-md-end text-start">{{ __('Stock') }}</label>
+                        <div class="col-md-6">
+                          <input type="text" class="form-control @error('stock') is-invalid @enderror" id="stock" name="stock" value="{{ old('stock') }}">
+                            @if ($errors->has('stock'))
+                                <span class="text-danger">{{ $errors->first('stock') }}</span>
                             @endif
                         </div>
                     </div>

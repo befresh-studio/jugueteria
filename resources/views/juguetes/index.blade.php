@@ -22,7 +22,7 @@
                 @forelse ($juguetes as $juguete)
                 <tr>
                     <th scope="row">{{ $juguete->id }}</th>
-                    <td>{{ $juguete->imagen }}</td>
+                    <td><img src="{{ url('storage/'.$juguete->imagen) }}" alt="{{ $juguete->nombre }}" class="img-fluid" /></td>
                     <td>{{ $juguete->nombre }}</td>
                     <td>{{ $juguete->referencia }}</td>
                     <td>{{ $juguete->ean13 }}</td>

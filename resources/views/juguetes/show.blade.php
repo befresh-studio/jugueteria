@@ -19,7 +19,7 @@
                     <div class="row">
                         <label for="imagen" class="col-md-4 col-form-label text-md-end text-start"><strong>{{ __('Imagen') }}:</strong></label>
                         <div class="col-md-6" style="line-height: 35px;">
-                            {{ $juguete->imagen }}
+                            <img src="{{ url('storage/'.$juguete->imagen) }}" alt="{{ $juguete->nombre }}" class="img-fluid" />
                         </div>
                     </div>
                     
@@ -41,6 +41,20 @@
                         <label for="ean13" class="col-md-4 col-form-label text-md-end text-start"><strong>{{ __('EAN13') }}:</strong></label>
                         <div class="col-md-6" style="line-height: 35px;">
                             {{ $juguete->ean13 }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <label for="precio" class="col-md-4 col-form-label text-md-end text-start"><strong>{{ __('Precio') }}:</strong></label>
+                        <div class="col-md-6" style="line-height: 35px;">
+                            {{ $juguete->precio }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <label for="stock" class="col-md-4 col-form-label text-md-end text-start"><strong>{{ __('Stock') }}:</strong></label>
+                        <div class="col-md-6" style="line-height: 35px;">
+                            {{ $juguete->stock }}
                         </div>
                     </div>
         

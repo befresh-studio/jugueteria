@@ -22,7 +22,7 @@ class StoreJugueteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'imagen' => 'required|string|max:255',
+            'fichero' => 'required|file|max:2048|mimes:jpg,png,jpeg',
             'nombre' => 'required|string|max:100',
             'referencia' => 'required|string|max:20',
             'ean13' => 'required|string|max:100',
