@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreVentaRequest;
 use App\Http\Requests\UpdateVentaRequest;
+use App\Models\Cliente;
 use App\Models\Venta;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -37,7 +38,11 @@ class VentaController extends Controller
      */
     public function create(): View
     {
-        return view('ventas.create');
+        $clientes = Cliente::all();
+
+        return view('ventas.create', [
+            'clientes' => $clientes
+        ]);
     }
 
     /**
@@ -65,8 +70,11 @@ class VentaController extends Controller
      */
     public function edit(Venta $venta): View
     {
+        $clientes = Cliente::all();
+
         return view('ventas.edit', [
-            'venta' => $venta
+            'venta' => $venta,
+            'clientes' => $clientes
         ]);
     }
 

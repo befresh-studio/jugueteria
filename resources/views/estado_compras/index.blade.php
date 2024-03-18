@@ -5,13 +5,13 @@
     <div class="card-header">{{ __('Listado de estados de compras') }}</div>
     <div class="card-body">
         @can('create-estado_compra')
-            <a href="{{ route('estado_compras.create') }}" class="btn btn-success btn-sm my-2"><i class="bi bi-plus-circle"></i> {{ __('Insertar nuevo estado de compra') }}</a>
+            <a href="{{ route('estado-compras.create') }}" class="btn btn-success btn-sm my-2"><i class="bi bi-plus-circle"></i> {{ __('Insertar nuevo estado de compra') }}</a>
         @endcan
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
                     <th scope="col">{{ __('ID') }}</th>
-                    <th scope="col">{{ __('Nombre') }}</th>
+                    <th scope="col">{{ __('Estado') }}</th>
                     <th scope="col">{{ __('Color') }}</th>
                     <th scope="col">{{ __('Acciones') }}</th>
                 </tr>
@@ -20,17 +20,17 @@
                 @forelse ($estado_compras as $estado_compra)
                 <tr>
                     <th scope="row">{{ $estado_compra->id }}</th>
-                    <td>{{ $estado_compra->nombre }}</td>
+                    <td>{{ $estado_compra->estado }}</td>
                     <td>{{ $estado_compra->color }}</td>
                     <td>
-                        <form action="{{ route('estado_compras.destroy', $estado_compra->id) }}" method="post">
+                        <form action="{{ route('estado-compras.destroy', $estado_compra->id) }}" method="post">
                             @csrf
                             @method('DELETE')
 
-                            <a href="{{ route('estado_compras.show', $estado_compra->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-eye"></i> {{ __('Ver') }}</a>
+                            <a href="{{ route('estado-compras.show', $estado_compra->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-eye"></i> {{ __('Ver') }}</a>
 
                             @can('edit-estado_compra')
-                                <a href="{{ route('estado_compras.edit', $estado_compra->id) }}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> {{ __('Editar') }}</a>
+                                <a href="{{ route('estado-compras.edit', $estado_compra->id) }}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> {{ __('Editar') }}</a>
                             @endcan
 
                             @can('delete-estado_compra')

@@ -17,9 +17,16 @@
             <div class="card-body">
 
                     <div class="row">
+                        <label for="categoria" class="col-md-4 col-form-label text-md-end text-start"><strong>{{ __('Categoría') }}:</strong></label>
+                        <div class="col-md-6" style="line-height: 35px;">
+                            {{ $juguete->categoria->nombre }}
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <label for="imagen" class="col-md-4 col-form-label text-md-end text-start"><strong>{{ __('Imagen') }}:</strong></label>
                         <div class="col-md-6" style="line-height: 35px;">
-                            <img src="{{ url('storage/'.$juguete->imagen) }}" alt="{{ $juguete->nombre }}" class="img-fluid" />
+                            <img src="{{ url('storage/'.$juguete->imagen) }}" alt="{{ $juguete->nombre }}" class="img-fluid img-juguete" />
                         </div>
                     </div>
                     

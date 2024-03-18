@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCompraRequest;
 use App\Http\Requests\UpdateCompraRequest;
 use App\Models\Compra;
+use App\Models\Proveedor;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 
@@ -37,7 +38,11 @@ class CompraController extends Controller
      */
     public function create(): View
     {
-        return view('compras.create');
+        $proveedores = Proveedor::all();
+
+        return view('compras.create', [
+            'proveedores' => $proveedores
+        ]);
     }
 
     /**
@@ -65,8 +70,11 @@ class CompraController extends Controller
      */
     public function edit(Compra $compra): View
     {
+        $proveedores = Proveedor::all();
+
         return view('compras.edit', [
-            'compra' => $compra
+            'compra' => $compra,
+            'proveedores' => $proveedores
         ]);
     }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreJugueteRequest;
 use App\Http\Requests\UpdateJugueteRequest;
+use App\Models\Categoria;
 use App\Models\Juguete;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -37,7 +38,11 @@ class JugueteController extends Controller
      */
     public function create(): View
     {
-        return view('juguetes.create');
+        $categorias = Categoria::all();
+
+        return view('juguetes.create', [
+            'categorias' => $categorias
+        ]);
     }
 
     /**
@@ -49,11 +54,12 @@ class JugueteController extends Controller
         // $request->file('fichero')->storeAs('juguetes', $nombre_imagen);
         $path = $request->file('fichero')->store('juguetes', ['disk' => 'public']);
 
-        $request['precio'] = str_replace(',', '.', $request['precio']);
         //$request['imagen'] = $nombre_imagen;
         $request['imagen'] = $path;
 
-        Juguete::create($request->all());
+        $juguete = Juguete::create($request->all());
+        
+        $juguete->categorias()->sync($request->categorias);
 
         return redirect()->route('juguetes.index')->withSuccess('Nuevo juguete creado correctamente.');
     }
@@ -73,8 +79,11 @@ class JugueteController extends Controller
      */
     public function edit(Juguete $juguete): View
     {
+        $categorias = Categoria::all();
+
         return view('juguetes.edit', [
-            'juguete' => $juguete
+            'juguete' => $juguete,
+            'categorias' => $categorias
         ]);
     }
 
@@ -88,9 +97,9 @@ class JugueteController extends Controller
             $request['imagen'] = $path;
         }
 
-        $request['precio'] = str_replace(',', '.', $request['precio']); 
-
         $juguete->update($request->all());
+
+        $juguete->categorias()->sync($request->categorias);
 
         return redirect()->back()->withSuccess('Juguete actualizado correctamente.');
     }

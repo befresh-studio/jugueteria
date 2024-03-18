@@ -23,8 +23,8 @@ class UpdateVentaRequest extends FormRequest
     {
         return [
             'referencia' => 'required|string|max:10',
-            'importe_total' => 'required|decimal:10,2',
-            'iva' => 'required|decimal:10,2',
+            'importe_total' => 'required|decimal:2',
+            'iva' => 'required|decimal:2',
             'clientes_id' => 'required|exists:clientes,id'
         ];
     }

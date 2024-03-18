@@ -26,7 +26,7 @@ class UpdateJugueteRequest extends FormRequest
             'nombre' => 'required|string|max:100',
             'referencia' => 'required|string|max:20',
             'ean13' => 'required|string|max:100',
-            'precio' => 'required',
+            'precio' => 'required|numeric|decimal:2',
             'stock' => 'required',
         ];
     }

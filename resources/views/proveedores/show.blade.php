@@ -8,39 +8,46 @@
         <div class="card">
             <div class="card-header">
                 <div class="float-start">
-                    {{ __('Información del juguete') }}
+                    {{ __('Información del proveedor') }}
                 </div>
                 <div class="float-end">
-                    <a href="{{ route('juguetes.index') }}" class="btn btn-primary btn-sm">&larr; {{ __('Volver') }}</a>
+                    <a href="{{ route('proveedores.index') }}" class="btn btn-primary btn-sm">&larr; {{ __('Volver') }}</a>
                 </div>
             </div>
             <div class="card-body">
-
-                    <div class="row">
-                        <label for="imagen" class="col-md-4 col-form-label text-md-end text-start"><strong>{{ __('Imagen') }}:</strong></label>
-                        <div class="col-md-6" style="line-height: 35px;">
-                            {{ $juguete->imagen }}
-                        </div>
-                    </div>
                     
                     <div class="row">
                         <label for="nombre" class="col-md-4 col-form-label text-md-end text-start"><strong>{{ __('Nombre') }}:</strong></label>
                         <div class="col-md-6" style="line-height: 35px;">
-                            {{ $juguete->nombre }}
+                            {{ $proveedor->nombre }}
                         </div>
                     </div>
 
                     <div class="row">
-                        <label for="referencia" class="col-md-4 col-form-label text-md-end text-start"><strong>{{ __('Referencia') }}:</strong></label>
+                        <label for="email" class="col-md-4 col-form-label text-md-end text-start"><strong>{{ __('Email') }}:</strong></label>
                         <div class="col-md-6" style="line-height: 35px;">
-                            {{ $juguete->referencia }}
+                            {{ $proveedor->email }}
                         </div>
                     </div>
 
                     <div class="row">
-                        <label for="ean13" class="col-md-4 col-form-label text-md-end text-start"><strong>{{ __('EAN13') }}:</strong></label>
+                        <label for="cif" class="col-md-4 col-form-label text-md-end text-start"><strong>{{ __('CIF') }}:</strong></label>
                         <div class="col-md-6" style="line-height: 35px;">
-                            {{ $juguete->ean13 }}
+                            {{ $proveedor->cif }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <label for="telefono" class="col-md-4 col-form-label text-md-end text-start"><strong>{{ __('Teléfono') }}:</strong></label>
+                        <div class="col-md-6" style="line-height: 35px;">
+                            {{ $proveedor->telefono }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <label for="observaciones" class="col-md-4 col-form-label text-md-end text-start"><strong>{{ __('Observaciones') }}:</strong></label>
+                        <div class="col-md-6" style="line-height: 35px;">
+                            {{ $proveedor->observaciones }}
                         </div>
                     </div>
         

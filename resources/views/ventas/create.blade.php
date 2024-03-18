@@ -8,32 +8,27 @@
         <div class="card">
             <div class="card-header">
                 <div class="float-start">
-                    {{ __('Insertar nuevo juguete') }}
+                    {{ __('Insertar nueva venta') }}
                 </div>
                 <div class="float-end">
-                    <a href="{{ route('juguetes.index') }}" class="btn btn-primary btn-sm">&larr; {{ __('Volver') }}</a>
+                    <a href="{{ route('ventas.index') }}" class="btn btn-primary btn-sm">&larr; {{ __('Volver') }}</a>
                 </div>
             </div>
             <div class="card-body">
-                <form action="{{ route('juguetes.store') }}" method="post">
+                <form action="{{ route('ventas.store') }}" method="post">
                     @csrf
 
                     <div class="mb-3 row">
-                        <label for="imagen" class="col-md-4 col-form-label text-md-end text-start">{{ __('Imagen') }}</label>
+                        <label for="cliente" class="col-md-4 col-form-label text-md-end text-start">{{ __('Cliente') }}</label>
                         <div class="col-md-6">
-                          <input type="imagen" class="form-control @error('imagen') is-invalid @enderror" id="imagen" name="imagen" value="{{ old('imagen') }}">
-                            @if ($errors->has('imagen'))
-                                <span class="text-danger">{{ $errors->first('imagen') }}</span>
-                            @endif
-                        </div>
-                    </div>
-                    
-                    <div class="mb-3 row">
-                        <label for="nombre" class="col-md-4 col-form-label text-md-end text-start">{{ __('Nombre') }}</label>
-                        <div class="col-md-6">
-                          <input type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" value="{{ old('nombre') }}">
-                            @if ($errors->has('nombre'))
-                                <span class="text-danger">{{ $errors->first('nombre') }}</span>
+                            <select class="form-control @error('proveedores_id') is-invalid @enderror" id="cliente" name="clientes_id">
+                                <option value="">{{ __('Seleccione un cliente') }}</option>
+                                @foreach($clientes as $cliente)
+                                    <option value="{{ $cliente->id }}"{{ ($cliente->id == old('clientes_id') ? ' selected' : '') }}>{{ $cliente->nombre }} {{ $cliente->apellidos }}</option>
+                                @endforeach
+                            </select>
+                            @if ($errors->has('clientes_id'))
+                                <span class="text-danger">{{ $errors->first('clientes_id') }}</span>
                             @endif
                         </div>
                     </div>
@@ -49,17 +44,27 @@
                     </div>
 
                     <div class="mb-3 row">
-                        <label for="ean13" class="col-md-4 col-form-label text-md-end text-start">{{ __('EAN13') }}</label>
+                        <label for="iva" class="col-md-4 col-form-label text-md-end text-start">{{ __('IVA') }}</label>
                         <div class="col-md-6">
-                          <input type="text" class="form-control @error('ean13') is-invalid @enderror" id="ean13" name="ean13" value="{{ old('ean13') }}">
-                            @if ($errors->has('ean13'))
-                                <span class="text-danger">{{ $errors->first('ean13') }}</span>
+                          <input type="text" class="form-control decimal @error('iva') is-invalid @enderror" id="iva" name="iva" value="{{ old('iva') }}">
+                            @if ($errors->has('iva'))
+                                <span class="text-danger">{{ $errors->first('iva') }}</span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="importe_total" class="col-md-4 col-form-label text-md-end text-start">{{ __('Importe total') }}</label>
+                        <div class="col-md-6">
+                          <input type="text" class="form-control decimal @error('importe_total') is-invalid @enderror" id="importe_total" name="importe_total" value="{{ old('importe_total') }}">
+                            @if ($errors->has('importe_total'))
+                                <span class="text-danger">{{ $errors->first('importe_total') }}</span>
                             @endif
                         </div>
                     </div>
                     
                     <div class="mb-3 row">
-                        <input type="submit" class="col-md-3 offset-md-5 btn btn-primary" value="{{ __('Insertar juguete') }}">
+                        <input type="submit" class="col-md-3 offset-md-5 btn btn-primary" value="{{ __('Insertar venta') }}">
                     </div>
                     
                 </form>

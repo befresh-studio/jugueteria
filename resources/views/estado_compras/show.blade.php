@@ -8,39 +8,25 @@
         <div class="card">
             <div class="card-header">
                 <div class="float-start">
-                    {{ __('Información del juguete') }}
+                    {{ __('Información del estado de compra') }}
                 </div>
                 <div class="float-end">
-                    <a href="{{ route('juguetes.index') }}" class="btn btn-primary btn-sm">&larr; {{ __('Volver') }}</a>
+                    <a href="{{ route('estado-compras.index') }}" class="btn btn-primary btn-sm">&larr; {{ __('Volver') }}</a>
                 </div>
             </div>
             <div class="card-body">
-
-                    <div class="row">
-                        <label for="imagen" class="col-md-4 col-form-label text-md-end text-start"><strong>{{ __('Imagen') }}:</strong></label>
-                        <div class="col-md-6" style="line-height: 35px;">
-                            {{ $juguete->imagen }}
-                        </div>
-                    </div>
                     
                     <div class="row">
-                        <label for="nombre" class="col-md-4 col-form-label text-md-end text-start"><strong>{{ __('Nombre') }}:</strong></label>
+                        <label for="estado" class="col-md-4 col-form-label text-md-end text-start"><strong>{{ __('Estado') }}:</strong></label>
                         <div class="col-md-6" style="line-height: 35px;">
-                            {{ $juguete->nombre }}
+                            {{ $estado_compra->estado }}
                         </div>
                     </div>
 
                     <div class="row">
-                        <label for="referencia" class="col-md-4 col-form-label text-md-end text-start"><strong>{{ __('Referencia') }}:</strong></label>
+                        <label for="color" class="col-md-4 col-form-label text-md-end text-start"><strong>{{ __('Color') }}:</strong></label>
                         <div class="col-md-6" style="line-height: 35px;">
-                            {{ $juguete->referencia }}
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <label for="ean13" class="col-md-4 col-form-label text-md-end text-start"><strong>{{ __('EAN13') }}:</strong></label>
-                        <div class="col-md-6" style="line-height: 35px;">
-                            {{ $juguete->ean13 }}
+                            {{ $estado_compra->color }}
                         </div>
                     </div>
         

@@ -11,6 +11,7 @@
             <thead>
                 <tr>
                 <th scope="col">{{ __('ID') }}</th>
+                <th scope="col">{{ __('Categorías') }}</th>
                 <th scope="col">{{ __('Imagen') }}</th>
                 <th scope="col">{{ __('Nombre') }}</th>
                 <th scope="col">{{ __('Referencia') }}</th>
@@ -22,7 +23,8 @@
                 @forelse ($juguetes as $juguete)
                 <tr>
                     <th scope="row">{{ $juguete->id }}</th>
-                    <td><img src="{{ url('storage/'.$juguete->imagen) }}" alt="{{ $juguete->nombre }}" class="img-fluid" /></td>
+                    <td>@foreach ($juguete->categorias as $categoria) {{ $categoria->nombre }}@if(!$loop->last),@endif @endforeach</th>
+                    <td><img src="{{ url('storage/'.$juguete->imagen) }}" alt="{{ $juguete->nombre }}" class="img-fluid img-juguete" /></td>
                     <td>{{ $juguete->nombre }}</td>
                     <td>{{ $juguete->referencia }}</td>
                     <td>{{ $juguete->ean13 }}</td>

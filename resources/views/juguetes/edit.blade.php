@@ -20,6 +20,21 @@
                     @method("PUT")
 
                     <div class="mb-3 row">
+                        <label for="categorias" class="col-md-4 col-form-label text-md-end text-start">{{ __('Categoría') }}</label>
+                        <div class="col-md-6">
+                            <select class="form-control @error('categorias') is-invalid @enderror" id="categorias" name="categorias[]" multiple>
+                                <option value="">{{ __('Seleccione una categoría') }}</option>
+                                @foreach($categorias as $categoria)
+                                    <option value="{{ $categoria->id }}"{{ (in_array($categoria->id, $juguete->categorias->pluck('id')->toArray()) ? ' selected' : '') }}>{{ $categoria->nombre }}</option>
+                                @endforeach
+                            </select>
+                            @if ($errors->has('categorias'))
+                                <span class="text-danger">{{ $errors->first('categorias') }}</span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
                         <label for="fichero" class="col-md-4 col-form-label text-md-end text-start">{{ __('Imagen') }}</label>
                         <div class="col-md-6">
                             <img src="{{ url('storage/'.$juguete->imagen) }}" alt="{{ $juguete->nombre }}" class="img-fluid" />
@@ -63,7 +78,7 @@
                     <div class="mb-3 row">
                         <label for="precio" class="col-md-4 col-form-label text-md-end text-start">{{ __('Precio') }}</label>
                         <div class="col-md-6">
-                          <input type="text" class="form-control @error('precio') is-invalid @enderror" id="precio" name="precio" value="{{ $juguete->precio }}">
+                          <input type="text" class="form-control decimal @error('precio') is-invalid @enderror" id="precio" name="precio" value="{{ $juguete->precio }}">
                             @if ($errors->has('precio'))
                                 <span class="text-danger">{{ $errors->first('precio') }}</span>
                             @endif

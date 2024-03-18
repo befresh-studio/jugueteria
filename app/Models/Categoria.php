@@ -14,6 +14,6 @@ class Categoria extends Model
     ];
 
     public function juguetes() {
-        return $this->belongsToMany(Juguete::class);
+        return $this->belongsToMany(Juguete::class, 'categorias_juguetes', 'categorias_id', 'juguetes_id');
     }
 }

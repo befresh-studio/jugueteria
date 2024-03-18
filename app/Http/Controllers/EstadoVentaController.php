@@ -47,7 +47,7 @@ class EstadoVentaController extends Controller
     {
         EstadoVenta::create($request->all());
 
-        return redirect()->route('estado_ventas.index')->withSuccess('Nuevo estado de venta creado correctamente.');
+        return redirect()->route('estado-ventas.index')->withSuccess('Nuevo estado de venta creado correctamente.');
     }
 
     /**
@@ -65,7 +65,7 @@ class EstadoVentaController extends Controller
      */
     public function edit(EstadoVenta $estadoVenta): View
     {
-        return view('estado_ventas.show', [
+        return view('estado_ventas.edit', [
             'estado_venta' => $estadoVenta
         ]);
     }
@@ -85,6 +85,6 @@ class EstadoVentaController extends Controller
     public function destroy(EstadoVenta $estadoVenta): RedirectResponse
     {
         $estadoVenta->delete();
-        return redirect()->route('estado_ventas.index')->withSuccess('Estado de venta borrado correctamente.');
+        return redirect()->route('estado-ventas.index')->withSuccess('Estado de venta borrado correctamente.');
     }
 }

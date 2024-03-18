@@ -24,8 +24,8 @@ class UpdateCompraRequest extends FormRequest
         return [
             'referencia' => 'required|string|max:10',
             'fecha_entrega' => 'required|date',
-            'importe_total' => 'required|decimal:10:2',
-            'iva' => 'required|decimal:10:2',
+            'importe_total' => 'required|decimal:2',
+            'iva' => 'required|decimal:2',
             'proveedores_id' => 'required|exists:proveedores,id'
         ];
     }

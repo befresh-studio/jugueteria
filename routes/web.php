@@ -13,6 +13,7 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\VentaController;
 use App\Http\Controllers\EstadoVentaController;
 use App\Http\Controllers\ReservaController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,12 +38,13 @@ Route::resources([
     'roles' => RoleController::class,
     'users' => UserController::class,
     'juguetes' => JugueteController::class,
-    'proveedores' => ProveedorController::class,
     'compras' => CompraController::class,
-    'estado_compras' => EstadoCompraController::class,
+    'estado-compras' => EstadoCompraController::class,
     'categorias' => CategoriaController::class,
     'clientes' => ClienteController::class,
     'ventas' => VentaController::class,
-    'estado_ventas' => EstadoVentaController::class,
+    'estado-ventas' => EstadoVentaController::class,
     'reservas' => ReservaController::class,
 ]);
+
+Route::resource('proveedores', ProveedorController::class)->parameter('proveedores','proveedor');

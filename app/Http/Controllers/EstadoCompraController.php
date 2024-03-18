@@ -47,7 +47,7 @@ class EstadoCompraController extends Controller
     {
         EstadoCompra::create($request->all());
 
-        return redirect()->route('estado_compras.index')->withSuccess('Nuevo estado de compra creado correctamente.');
+        return redirect()->route('estado-compras.index')->withSuccess('Nuevo estado de compra creado correctamente.');
     }
 
     /**
@@ -85,6 +85,6 @@ class EstadoCompraController extends Controller
     public function destroy(EstadoCompra $estadoCompra): RedirectResponse
     {
         $estadoCompra->delete();
-        return redirect()->route('estado_compras.index')->withSuccess('Estado de compra borrado correctamente.');
+        return redirect()->route('estado-compras.index')->withSuccess('Estado de compra borrado correctamente.');
     }
 }
