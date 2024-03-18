@@ -20,29 +20,29 @@
             </thead>
             <tbody>
                 @forelse ($ventas as $venta)
-                <tr>
-                    <th scope="row">{{ $venta->id }}</th>
-                    <td>{{ $venta->referencia }}</td>
-                    <td>{{ $venta->cliente->nombre }} {{ $venta->cliente->apellidos }}</td>
-                    <td>{{ $venta->iva }}</td>
-                    <td>{{ $venta->importe_total }}</td>
-                    <td>
-                        <form action="{{ route('ventas.destroy', $venta->id) }}" method="post">
-                            @csrf
-                            @method('DELETE')
+                    <tr>
+                        <th scope="row">{{ $venta->id }}</th>
+                        <td>{{ $venta->referencia }}</td>
+                        <td>{{ $venta->cliente->nombre }} {{ $venta->cliente->apellidos }}</td>
+                        <td>{{ $venta->iva }}</td>
+                        <td>{{ $venta->importe_total }}</td>
+                        <td>
+                            <form action="{{ route('ventas.destroy', $venta->id) }}" method="post">
+                                @csrf
+                                @method('DELETE')
 
-                            <a href="{{ route('ventas.show', $venta->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-eye"></i> {{ __('Ver') }}</a>
+                                <a href="{{ route('ventas.show', $venta->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-eye"></i> {{ __('Ver') }}</a>
 
-                            @can('edit-venta')
-                                <a href="{{ route('ventas.edit', $venta->id) }}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> {{ __('Editar') }}</a>
-                            @endcan
+                                @can('edit-venta')
+                                    <a href="{{ route('ventas.edit', $venta->id) }}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> {{ __('Editar') }}</a>
+                                @endcan
 
-                            @can('delete-venta')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('{{ __('¿Quieres borrar esta venta?') }}');"><i class="bi bi-trash"></i> {{ __('Borrar') }}</button>
-                            @endcan
-                        </form>
-                    </td>
-                </tr>
+                                @can('delete-venta')
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('{{ __('¿Quieres borrar esta venta?') }}');"><i class="bi bi-trash"></i> {{ __('Borrar') }}</button>
+                                @endcan
+                            </form>
+                        </td>
+                    </tr>
                 @empty
                     <td colspan="6">
                         <span class="text-danger">

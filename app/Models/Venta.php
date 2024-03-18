@@ -17,7 +17,7 @@ class Venta extends Model
     ];
 
     public function cliente() {
-        return $this->belongsTo(Cliente::class);
+        return $this->belongsTo(Cliente::class, 'clientes_id');
     }
 
     public function estados() {

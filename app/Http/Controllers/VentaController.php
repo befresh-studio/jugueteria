@@ -29,7 +29,7 @@ class VentaController extends Controller
     public function index(): View
     {
         return view('ventas.index', [
-            'ventas' => Venta::latest()->paginate(3)
+            'ventas' => Venta::with('cliente')->latest()->paginate(3)
         ]);
     }
 

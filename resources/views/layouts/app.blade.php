@@ -21,16 +21,14 @@
     <div id="app">
         <header>
             <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-5 col-md-2 py-2">
+                <div class="row justify-content-center align-items-center">
+                    <div class="col-4 col-md-2 py-2">
                         <a class="navbar-brand" href="{{ url('/') }}">
-                            <img src="{{ asset('img/logo.png') }}" class="img-fluid" alt="Logo" />
+                            <img src="{{ asset('img/logo.png') }}" class="img-fluid w-75" alt="Logo" />
                         </a>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <nav class="navbar navbar-expand-md navbar-light shadow-sm">
+                    <div class="col-12 col-md-8">
+                        <nav class="navbar navbar-expand-md">
                             <div class="container justify-content-center">    
                                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                                     <span class="navbar-toggler-icon"></span>
@@ -110,7 +108,7 @@
         </header>
 
         <main class="py-4">
-        <div class="container">
+            <div class="container">
                 <div class="row justify-content-center mt-3">
                     <div class="col-md-12">
                         
@@ -121,18 +119,21 @@
                         @endif
 
                         @yield('content')
-                        
-                        <div class="row justify-content-center text-center mt-3">
-                            <div class="col-md-12">
-                                <p>Copyright © 2024</p>
-                            </div>
-                        </div>
-
 
                     </div>
                 </div>
             </div>
         </main>
+
+        <footer class="py-4">
+            <div class="container">
+                <div class="row justify-content-center text-center">
+                    <div class="col-md-12">
+                        <p class="m-0">Copyright © 2024</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>
 </body>
 </html>
