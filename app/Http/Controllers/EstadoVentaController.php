@@ -28,7 +28,7 @@ class EstadoVentaController extends Controller
     public function index(): View
     {
         return view('estado_ventas.index', [
-            'estado_ventas' => EstadoVenta::latest()->paginate(3)
+            'estado_ventas' => EstadoVenta::latest()->paginate(10)
         ]);
     }
 

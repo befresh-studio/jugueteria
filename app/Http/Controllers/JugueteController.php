@@ -29,7 +29,7 @@ class JugueteController extends Controller
     public function index(): View
     {
         return view('juguetes.index', [
-            'juguetes' => Juguete::latest()->paginate(3)
+            'juguetes' => Juguete::latest()->paginate(10)
         ]);
     }
 

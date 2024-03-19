@@ -28,7 +28,7 @@ class EstadoCompraController extends Controller
     public function index(): View
     {
         return view('estado_compras.index', [
-            'estado_compras' => EstadoCompra::latest()->paginate(3)
+            'estado_compras' => EstadoCompra::latest()->paginate(10)
         ]);
     }
 

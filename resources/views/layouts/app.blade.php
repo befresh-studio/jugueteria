@@ -135,5 +135,7 @@
             </div>
         </footer>
     </div>
+
+    @yield('javascript')
 </body>
 </html>

@@ -17,9 +17,11 @@
             <div class="card-body">
 
                     <div class="row">
-                        <label for="categoria" class="col-md-4 col-form-label text-md-end text-start"><strong>{{ __('Categoría') }}:</strong></label>
+                        <label for="categoria" class="col-md-4 col-form-label text-md-end text-start"><strong>{{ __('Categorías') }}:</strong></label>
                         <div class="col-md-6" style="line-height: 35px;">
-                            {{ $juguete->categoria->nombre }}
+                            @foreach ($juguete->categorias as $categoria)
+                                {{ $categoria->nombre }}@if(!$loop->last),@endif
+                            @endforeach
                         </div>
                     </div>
 

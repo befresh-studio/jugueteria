@@ -21,7 +21,7 @@
             </thead>
             <tbody>
                 @forelse ($juguetes as $juguete)
-                <tr>
+                <tr class="{{ ($juguete->stock == 0 ? 'agotado' : '') }}">
                     <th scope="row">{{ $juguete->id }}</th>
                     <td>@foreach ($juguete->categorias as $categoria) {{ $categoria->nombre }}@if(!$loop->last),@endif @endforeach</th>
                     <td><img src="{{ url('storage/'.$juguete->imagen) }}" alt="{{ $juguete->nombre }}" class="img-fluid img-juguete" /></td>

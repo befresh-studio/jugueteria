@@ -46,3 +46,5 @@ Route::resources([
 ]);
 
 Route::resource('proveedores', ProveedorController::class)->parameter('proveedores','proveedor');
+
+Route::get('ventas/add_juguete/{num_juguete}', [VentaController::class, 'addJuguete'])->name('add_juguete');

@@ -28,7 +28,7 @@ class ProveedorController extends Controller
     public function index(): View
     {
         return view('proveedores.index', [
-            'proveedores' => Proveedor::latest()->paginate(3)
+            'proveedores' => Proveedor::latest()->paginate(10)
         ]);
     }
 

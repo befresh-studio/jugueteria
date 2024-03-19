@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreReservaRequest;
 use App\Http\Requests\UpdateReservaRequest;
+use App\Models\Cliente;
+use App\Models\Juguete;
 use App\Models\Reserva;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -28,7 +30,7 @@ class ReservaController extends Controller
     public function index(): View
     {
         return view('reservas.index', [
-            'reservas' => Reserva::latest()->paginate(3)
+            'reservas' => Reserva::latest()->paginate(10)
         ]);
     }
 
@@ -37,7 +39,13 @@ class ReservaController extends Controller
      */
     public function create(): View
     {
-        return view('reservas.create');
+        $clientes = Cliente::all();
+        $juguetes = Juguete::all();
+
+        return view('reservas.create', [
+            'clientes' => $clientes,
+            'juguetes' => $juguetes
+        ]);
     }
 
     /**
@@ -65,8 +73,13 @@ class ReservaController extends Controller
      */
     public function edit(Reserva $reserva): View
     {
+        $clientes = Cliente::all();
+        $juguetes = Juguete::all();
+
         return view('reservas.edit', [
-            'reserva' => $reserva
+            'reserva' => $reserva,
+            'clientes' => $clientes,
+            'juguetes' => $juguetes
         ]);
     }
 

@@ -25,6 +25,6 @@ class Venta extends Model
     }
 
     public function juguetes() {
-        return $this->belongsToMany(Juguete::class);
+        return $this->belongsToMany(Juguete::class, 'juguetes_ventas', 'ventas_id', 'juguetes_id')->withPivot('precio_unitario', 'iva_total', 'cantidad', 'importe_total')->withTimestamps();
     }
 }

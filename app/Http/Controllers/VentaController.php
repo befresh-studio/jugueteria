@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreVentaRequest;
 use App\Http\Requests\UpdateVentaRequest;
 use App\Models\Cliente;
+use App\Models\Juguete;
 use App\Models\Venta;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -29,7 +30,7 @@ class VentaController extends Controller
     public function index(): View
     {
         return view('ventas.index', [
-            'ventas' => Venta::with('cliente')->latest()->paginate(3)
+            'ventas' => Venta::with('cliente')->latest()->paginate(10)
         ]);
     }
 
@@ -39,9 +40,11 @@ class VentaController extends Controller
     public function create(): View
     {
         $clientes = Cliente::all();
+        $juguetes = Juguete::all();
 
         return view('ventas.create', [
-            'clientes' => $clientes
+            'clientes' => $clientes,
+            'juguetes' => $juguetes,
         ]);
     }
 
@@ -50,7 +53,22 @@ class VentaController extends Controller
      */
     public function store(StoreVentaRequest $request): RedirectResponse
     {
-        Venta::create($request->all());
+        $venta = Venta::create($request->all());
+
+        foreach($request->juguetes as $index => $id_juguete) {
+            $juguete = Juguete::find($id_juguete);
+
+            $cantidad = $request->cantidad[$index];
+            $precio_unitario = $juguete->precio;
+            $iva_total = ($juguete->precio * ($request->iva_aplicado / 100)) * $request->cantidad[$index];
+            $importe_total = ($juguete->precio * ($request->iva_aplicado / 100 + 1)) * $request->cantidad[$index];
+
+            $venta->juguetes()->attach($id_juguete, ['cantidad' => $cantidad, 'precio_unitario' => $precio_unitario, 'iva_total' => $iva_total, 'importe_total' => $importe_total]);
+
+            $juguete->stock -= $cantidad;
+
+            $juguete->save();
+        }
 
         return redirect()->route('ventas.index')->withSuccess('Nueva venta creada correctamente.');
     }
@@ -94,5 +112,14 @@ class VentaController extends Controller
     {
         $venta->delete();
         return redirect()->route('ventas.index')->withSuccess('Venta borrada correctamente.');
+    }
+
+    public function addJuguete(int $num_juguete): View {
+        $juguetes = Juguete::all();
+
+        return view('ventas.add_juguete', [
+            'num_juguete' => $num_juguete,
+            'juguetes' => $juguetes
+        ]);
     }
 }
