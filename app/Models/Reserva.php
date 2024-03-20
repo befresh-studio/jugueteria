@@ -16,10 +16,10 @@ class Reserva extends Model
     ];
 
     public function cliente() {
-        return $this->belongsTo(Cliente::class);
+        return $this->belongsTo(Cliente::class, 'clientes_id');
     }
 
     public function juguetes() {
-        return $this->belongsToMany(Juguete::class);
+        return $this->belongsToMany(Juguete::class, 'juguetes_reservas', 'reservas_id', 'juguetes_id')->withPivot('precio_unitario', 'iva_total', 'cantidad', 'importe_total')->withTimestamps();
     }
 }

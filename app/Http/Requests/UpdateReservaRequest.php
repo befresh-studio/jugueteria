@@ -22,8 +22,8 @@ class UpdateReservaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'importe_total' => 'required|decimal:10,2',
-            'importe_pagado' => 'required|decimal:10,2',
+            'importe_total' => 'required|decimal:2',
+            'importe_pagado' => 'required|decimal:2',
             'clientes_id' => 'required|exists:clientes,id',
         ];
     }

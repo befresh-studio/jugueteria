@@ -21,12 +21,15 @@
                     <div class="mb-3 row">
                         <label for="cliente" class="col-md-4 col-form-label text-md-end text-start">{{ __('Cliente') }}</label>
                         <div class="col-md-6">
-                            <select class="form-control @error('clientes_id') is-invalid @enderror" id="cliente" name="clientes_id">
+                            <select class="form-control @error('clientes_id') is-invalid @enderror" id="cliente" name="{{ ($cliente ? 'clientes' : 'clientes_id') }}"{{ ($cliente ? ' disabled' : '') }}>
                                 <option value="">{{ __('Seleccione un cliente') }}</option>
-                                @foreach($clientes as $cliente)
-                                    <option value="{{ $cliente->id }}"{{ ($cliente->id == old('clientes_id') ? ' selected' : '') }}>{{ $cliente->nombre }} {{ $cliente->apellidos }}</option>
+                                @foreach($clientes as $cada_cliente)
+                                    <option value="{{ $cada_cliente->id }}"{{ ($cliente != NULL ? ($cliente->id == $cada_cliente->id ? ' selected' : ($cada_cliente->id == old('clientes_id') ? ' selected' : '')) : '') }}>{{ $cada_cliente->nombre }} {{ $cada_cliente->apellidos }}</option>
                                 @endforeach
                             </select>
+                            @if($cliente)
+                                <input type="hidden" name="clientes_id" value="{{ $cliente->id }}" />
+                            @endif
                             @if ($errors->has('clientes_id'))
                                 <span class="text-danger">{{ $errors->first('clientes_id') }}</span>
                             @endif

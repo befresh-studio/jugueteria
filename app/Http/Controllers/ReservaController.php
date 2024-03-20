@@ -30,21 +30,22 @@ class ReservaController extends Controller
     public function index(): View
     {
         return view('reservas.index', [
-            'reservas' => Reserva::latest()->paginate(10)
+            'reservas' => Reserva::with('cliente')->latest()->paginate(10)
         ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): View
+    public function create(Cliente $cliente = NULL): View
     {
         $clientes = Cliente::all();
         $juguetes = Juguete::all();
 
         return view('reservas.create', [
             'clientes' => $clientes,
-            'juguetes' => $juguetes
+            'juguetes' => $juguetes,
+            'cliente' => $cliente,
         ]);
     }
 
@@ -53,7 +54,22 @@ class ReservaController extends Controller
      */
     public function store(StoreReservaRequest $request): RedirectResponse
     {
-        Reserva::create($request->all());
+        $reserva = Reserva::create($request->all());
+
+        foreach($request->juguetes as $index => $id_juguete) {
+            $juguete = Juguete::find($id_juguete);
+
+            $cantidad = $request->cantidad[$index];
+            $precio_unitario = $juguete->precio;
+            $iva_total = ($juguete->precio * ($request->iva_aplicado / 100)) * $request->cantidad[$index];
+            $importe_total = ($juguete->precio * ($request->iva_aplicado / 100 + 1)) * $request->cantidad[$index];
+
+            $reserva->juguetes()->attach($id_juguete, ['cantidad' => $cantidad, 'precio_unitario' => $precio_unitario, 'iva_total' => $iva_total, 'importe_total' => $importe_total]);
+
+            $juguete->stock -= $cantidad;
+
+            $juguete->save();
+        }
 
         return redirect()->route('reservas.index')->withSuccess('Nueva reserva creada correctamente.');
     }

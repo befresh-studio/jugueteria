@@ -40,6 +40,14 @@
                             @can('delete-cliente')
                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('{{ __('¿Quieres borrar este cliente?') }}');"><i class="bi bi-trash"></i> {{ __('Borrar') }}</button>
                             @endcan
+
+                            @can('create-venta')
+                                <a href="{{ route('ventas.createCliente', $cliente->id) }}" class="btn btn-secondary btn-sm"><i class="bi bi-cart-plus"></i> {{ __('Venta') }}</a>
+                            @endcan
+
+                            @can('create-reserva')
+                                <a href="{{ route('reservas.createCliente', $cliente->id) }}" class="btn btn-secondary btn-sm"><i class="bi bi-basket2"></i> {{ __('Reserva') }}</a>
+                            @endcan
                         </form>
                     </td>
                 </tr>

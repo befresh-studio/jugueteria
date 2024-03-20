@@ -9,6 +9,7 @@ use App\Models\Juguete;
 use App\Models\Venta;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class VentaController extends Controller
 {
@@ -37,13 +38,14 @@ class VentaController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): View
+    public function create(Cliente $cliente = NULL): View
     {
         $clientes = Cliente::all();
         $juguetes = Juguete::all();
 
         return view('ventas.create', [
             'clientes' => $clientes,
+            'cliente' => $cliente,
             'juguetes' => $juguetes,
         ]);
     }
@@ -89,10 +91,12 @@ class VentaController extends Controller
     public function edit(Venta $venta): View
     {
         $clientes = Cliente::all();
+        $juguetes = Juguete::all();
 
         return view('ventas.edit', [
             'venta' => $venta,
-            'clientes' => $clientes
+            'clientes' => $clientes,
+            'juguetes' => $juguetes
         ]);
     }
 

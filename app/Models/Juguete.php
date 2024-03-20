@@ -19,7 +19,7 @@ class Juguete extends Model
     ];
 
     public function reservas() {
-        return $this->belongsToMany(Reserva::class);
+        return $this->belongsToMany(Reserva::class, 'juguetes_ventas', 'ventas_id', 'juguetes_id')->withPivot('precio_unitario', 'iva_total', 'cantidad', 'importe_total')->withTimestamps();
     }
 
     public function ventas() {
