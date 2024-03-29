@@ -35,6 +35,6 @@ class Juguete extends Model
     }
 
     public function proveedores() {
-        return $this->belongsToMany(Proveedor::class);
+        return $this->belongsToMany(Proveedor::class, 'juguetes_proveedores', 'juguetes_id', 'proveedores_id');
     }
 }

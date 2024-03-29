@@ -23,7 +23,7 @@
                         <label for="categorias" class="col-md-4 col-form-label text-md-end text-start">{{ __('Categoría') }}</label>
                         <div class="col-md-6">
                             <select class="form-control @error('categorias') is-invalid @enderror" id="categorias" name="categorias[]" multiple>
-                                <option value="">{{ __('Seleccione una categoría') }}</option>
+                                <option value="">{{ __('Seleccione categorías') }}</option>
                                 @foreach($categorias as $categoria)
                                     <option value="{{ $categoria->id }}"{{ (in_array($categoria->id, $juguete->categorias->pluck('id')->toArray()) ? ' selected' : '') }}>{{ $categoria->nombre }}</option>
                                 @endforeach

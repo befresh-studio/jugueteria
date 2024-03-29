@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+<a href="{{ route('estado-ventas.index') }}" class="btn btn-success btn-sm my-2"><i class="bi bi-flag-fill"></i> {{ __('Ver estados de ventas') }}</a>
+
 <div class="card">
     <div class="card-header">{{ __('Listado de ventas') }}</div>
     <div class="card-body">

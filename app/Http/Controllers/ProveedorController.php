@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProveedorRequest;
 use App\Http\Requests\UpdateProveedorRequest;
 use App\Models\Proveedor;
+use App\Models\Juguete;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 
@@ -37,7 +38,11 @@ class ProveedorController extends Controller
      */
     public function create(): View
     {
-        return view('proveedores.create');
+        $juguetes = Juguete::all();
+
+        return view('proveedores.create', [
+            'juguetes' => $juguetes
+        ]);
     }
 
     /**
@@ -45,7 +50,9 @@ class ProveedorController extends Controller
      */
     public function store(StoreProveedorRequest $request): RedirectResponse
     {
-        Proveedor::create($request->all());
+        $proveedor = Proveedor::create($request->all());
+
+        $proveedor->juguetes()->sync($request->juguetes);
 
         return redirect()->route('proveedores.index')->withSuccess('Nuevo proveedor creado correctamente.');
     }
@@ -65,8 +72,11 @@ class ProveedorController extends Controller
      */
     public function edit(Proveedor $proveedor): View
     {
+        $juguetes = Juguete::all();
+
         return view('proveedores.edit', [
-            'proveedor' => $proveedor
+            'proveedor' => $proveedor,
+            'juguetes' => $juguetes
         ]);
     }
 
@@ -76,6 +86,9 @@ class ProveedorController extends Controller
     public function update(UpdateProveedorRequest $request, Proveedor $proveedor): RedirectResponse
     {
         $proveedor->update($request->all());
+
+        $proveedor->juguetes()->sync($request->juguetes);
+
         return redirect()->back()->withSuccess('Proveedor actualizado correctamente.');
     }
 

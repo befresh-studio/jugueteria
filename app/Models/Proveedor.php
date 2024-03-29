@@ -22,4 +22,8 @@ class Proveedor extends Model
     public function compras() {
         return $this->hasMany(Compra::class);
     }
+
+    public function juguetes() {
+        return $this->belongsToMany(Juguete::class, 'juguetes_proveedores', 'proveedores_id', 'juguetes_id');
+    }
 }

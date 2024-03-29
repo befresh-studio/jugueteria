@@ -17,6 +17,21 @@
             <div class="card-body">
                 <form action="{{ route('proveedores.store') }}" method="post">
                     @csrf
+
+                    <div class="mb-3 row">
+                        <label for="juguetes" class="col-md-4 col-form-label text-md-end text-start">{{ __('Juguetes') }}</label>
+                        <div class="col-md-6">
+                            <select class="form-control @error('juguetes') is-invalid @enderror" id="juguetes" name="juguetes[]" multiple>
+                                <option value="">{{ __('Seleccione juguetes') }}</option>
+                                @foreach($juguetes as $juguete)
+                                    <option value="{{ $juguete->id }}"{{ (old('juguetes') && in_array($juguete->id, old('juguetes')) ? ' selected' : '') }}>{{ $juguete->nombre }}</option>
+                                @endforeach
+                            </select>
+                            @if ($errors->has('juguetes'))
+                                <span class="text-danger">{{ $errors->first('juguetes') }}</span>
+                            @endif
+                        </div>
+                    </div>
                     
                     <div class="mb-3 row">
                         <label for="nombre" class="col-md-4 col-form-label text-md-end text-start">{{ __('Nombre') }}</label>

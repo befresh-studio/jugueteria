@@ -72,6 +72,13 @@
                             @endif
                         </div>
                     </div>
+
+                    <div id="juguetes">
+                        <h3>{{ __('Juguetes') }}</h3>
+                        <hr />
+                    </div>
+
+                    <a href="#" id="add_juguete" class="btn btn-success btn-sm my-2"><i class="bi bi-plus-circle"></i> {{ __('Añadir juguete') }}</a>
                     
                     <div class="mb-3 row">
                         <input type="submit" class="col-md-3 offset-md-5 btn btn-primary" value="{{ __('Insertar compra') }}">
@@ -83,4 +90,57 @@
     </div>    
 </div>
     
+@endsection
+
+@section('javascript')
+    <script>
+        var juguetes = 0;
+
+        function actualizarImportes() {
+            var iva_aplicado = $("#iva_aplicado").val();
+            var iva = 0;
+            var importe_total = 0;
+
+            $("select.juguetes").each(function() {
+                if($(this).find(":selected").data('precio')) {
+                    var num_juguete = $(this).prop('id');
+                    var cantidad = $("#cantidad" + num_juguete.substring(num_juguete.indexOf('_'))).val();
+                    var precio = $(this).find(":selected").data('precio');
+
+                    iva += (precio * (iva_aplicado / 100) * cantidad);
+                    importe_total += (precio * (iva_aplicado / 100 + 1) * cantidad);
+                }
+            });
+
+            $("#iva").val(iva.toFixed(2));
+            $("#importe_total").val(importe_total.toFixed(2));
+        }
+
+        window.onload = function(){
+            $("#add_juguete").on('click', function(e) {
+                e.preventDefault();
+
+                juguetes++;
+                $.get("/compras/add_juguete/" + juguetes , function( data ) {
+                    $("#juguetes").append(data);
+                    
+                    $(".quitar").on('click', function() {
+                        $("#juguete" + $(this).data('num-juguete')).remove();
+                    });
+
+                    $("select.juguetes, input.cantidad").on('change', function() {
+                        actualizarImportes();
+                    });
+                });
+            });
+
+            $("select.juguetes, #iva_aplicado, input.cantidad").on('change', function() {
+                actualizarImportes();
+            });
+
+            $(".quitar").on('click', function() {
+                $("#juguete" + $(this).data('num-juguete')).remove();
+            });
+        };
+    </script>
 @endsection
