@@ -31,7 +31,7 @@ class Juguete extends Model
     }
 
     public function compras() {
-        return $this->belongsToMany(Compra::class);
+        return $this->belongsToMany(Compra::class, 'compras_juguetes', 'compras_id', 'juguetes_id')->withPivot('precio_unitario', 'iva_total', 'cantidad', 'importe_total')->withTimestamps();
     }
 
     public function proveedores() {

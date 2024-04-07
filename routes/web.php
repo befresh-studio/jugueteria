@@ -48,6 +48,7 @@ Route::resources([
 Route::resource('proveedores', ProveedorController::class)->parameter('proveedores','proveedor');
 
 Route::get('ventas/add_juguete/{num_juguete}', [VentaController::class, 'addJuguete'])->name('add_juguete');
+Route::get('compras/add_juguete/{num_juguete}/{proveedor}', [CompraController::class, 'addJuguete'])->name('add_juguete_compra');
 
 Route::get('ventas/create/{cliente}', [VentaController::class, 'create'])->name('ventas.createCliente');
 Route::get('reservas/create/{cliente}', [ReservaController::class, 'create'])->name('reservas.createCliente');

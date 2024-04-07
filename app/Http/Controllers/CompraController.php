@@ -6,6 +6,7 @@ use App\Http\Requests\StoreCompraRequest;
 use App\Http\Requests\UpdateCompraRequest;
 use App\Models\Compra;
 use App\Models\Proveedor;
+use App\Models\Juguete;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 
@@ -50,7 +51,22 @@ class CompraController extends Controller
      */
     public function store(StoreCompraRequest $request): RedirectResponse
     {
-        Compra::create($request->all());
+        $compra = Compra::create($request->all());
+
+        foreach($request->juguetes as $index => $id_juguete) {
+            $juguete = Juguete::find($id_juguete);
+
+            $cantidad = $request->cantidad[$index];
+            $precio_unitario = $request->precio_unitario[$index];
+            $iva_total = ($precio_unitario * ($request->iva_aplicado / 100)) * $cantidad;
+            $importe_total = ($precio_unitario * ($request->iva_aplicado / 100 + 1)) * $cantidad;
+
+            $compra->juguetes()->attach($id_juguete, ['cantidad' => $cantidad, 'precio_unitario' => $precio_unitario, 'iva_total' => $iva_total, 'importe_total' => $importe_total]);
+
+            $juguete->stock += $cantidad;
+
+            $juguete->save();
+        }
 
         return redirect()->route('compras.index')->withSuccess('Nueva compra creada correctamente.');
     }
@@ -94,5 +110,14 @@ class CompraController extends Controller
     {
         $compra->delete();
         return redirect()->route('compras.index')->withSuccess('Compra borrada correctamente.');
+    }
+
+    public function addJuguete(int $num_juguete, Proveedor $proveedor): View {
+        $juguetes = $proveedor->juguetes;
+
+        return view('compras.add_juguete', [
+            'num_juguete' => $num_juguete,
+            'juguetes' => $juguetes
+        ]);
     }
 }

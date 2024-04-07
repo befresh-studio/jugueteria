@@ -6,11 +6,15 @@
             <select class="form-control juguetes @error('juguetes') is-invalid @enderror" id="juguete_{{ $num_juguete }}" name="juguetes[]">
                 <option value="">{{ __('Seleccione un juguete') }}</option>
                 @foreach($juguetes as $juguete)
-                    @if($juguete->stock > 0)
-                        <option data-precio="{{ $juguete->precio }}" value="{{ $juguete->id }}"{{ ($juguete->id == old('juguetes') ? ' selected' : '') }}>{{ $juguete->nombre }}</option>
-                    @endif
+                    <option value="{{ $juguete->id }}"{{ ($juguete->id == old('juguetes') ? ' selected' : '') }}>{{ $juguete->nombre }}</option>
                 @endforeach
             </select>
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label for="precio_unitario_{{ $num_juguete }}" class="col-md-4 col-form-label text-md-end text-start">{{ __('Precio ud.') }}</label>
+        <div class="col-md-2">
+            <input type="number" class="form-control decimal precio_unitario @error('precio_unitario') is-invalid @enderror" id="precio_unitario_{{ $num_juguete }}" name="precio_unitario[]">
         </div>
     </div>
     <div class="mb-3 row">

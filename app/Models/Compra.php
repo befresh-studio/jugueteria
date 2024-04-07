@@ -18,11 +18,11 @@ class Compra extends Model
     ];
 
     public function proveedor() {
-        return $this->belongsTo(Proveedor::class);
+        return $this->belongsTo(Proveedor::class, 'proveedores_id');
     }
 
     public function juguetes() {
-        return $this->belongsToMany(Juguete::class);
+        return $this->belongsToMany(Juguete::class, 'compras_juguetes', 'compras_id', 'juguetes_id')->withPivot('precio_unitario', 'iva_total', 'cantidad', 'importe_total')->withTimestamps();
     }
 
     public function estados() {

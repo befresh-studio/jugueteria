@@ -66,7 +66,7 @@
                     <div class="row">
                         <label for="juguete_{{ $loop->index }}" class="col-md-4 col-form-label text-md-end text-start"><strong>{{ __('Juguete') }} {{ $loop->index + 1 }}:</strong></label>
                         <div class="col-md-6" style="line-height: 35px;">
-                            {{ $juguete->nombre }}
+                            {{ $juguete->nombre }} ({{ __('último precio de compra:') }} {{ $proveedor->ultimoPrecioCompra($juguete->id) }}€)
                         </div>
                     </div>
                 @endforeach

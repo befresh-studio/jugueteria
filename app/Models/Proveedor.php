@@ -26,4 +26,16 @@ class Proveedor extends Model
     public function juguetes() {
         return $this->belongsToMany(Juguete::class, 'juguetes_proveedores', 'proveedores_id', 'juguetes_id');
     }
+
+    public function ultimoPrecioCompra(int $id_juguete) {
+        $compra = Compra::whereHas('juguetes', function($q) use ($id_juguete) {
+            $q->where('juguetes.id', $id_juguete);
+        })->latest()->first();
+
+        foreach($compra->juguetes as $juguete_comprado) {
+            if($juguete_comprado->id == $id_juguete) {
+                return $juguete_comprado->pivot->precio_unitario;
+            }
+        }
+    }
 }
