@@ -12,10 +12,10 @@
                 <tr>
                 <th scope="col">{{ __('ID') }}</th>
                 <th scope="col">{{ __('Categorías') }}</th>
-                <th scope="col">{{ __('Imagen') }}</th>
                 <th scope="col">{{ __('Nombre') }}</th>
                 <th scope="col">{{ __('Referencia') }}</th>
                 <th scope="col">{{ __('EAN13') }}</th>
+                <th scope="col">{{ __('Stock') }}</th>
                 <th scope="col">{{ __('Acciones') }}</th>
                 </tr>
             </thead>
@@ -24,10 +24,11 @@
                 <tr class="{{ ($juguete->stock == 0 ? 'agotado' : '') }}">
                     <th scope="row">{{ $juguete->id }}</th>
                     <td>@foreach ($juguete->categorias as $categoria) {{ $categoria->nombre }}@if(!$loop->last),@endif @endforeach</th>
-                    <td><img src="{{ url('storage/'.$juguete->imagen) }}" alt="{{ $juguete->nombre }}" class="img-fluid img-juguete" /></td>
+                    {{--<td><img src="{{ url('storage/'.$juguete->imagen) }}" alt="{{ $juguete->nombre }}" class="img-fluid img-juguete" /></td>--}}
                     <td>{{ $juguete->nombre }}</td>
                     <td>{{ $juguete->referencia }}</td>
                     <td>{{ $juguete->ean13 }}</td>
+                    <td>{{ $juguete->stock }}</td>
                     <td>
                         <form action="{{ route('juguetes.destroy', $juguete->id) }}" method="post">
                             @csrf

@@ -13,6 +13,7 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\VentaController;
 use App\Http\Controllers\EstadoVentaController;
 use App\Http\Controllers\ReservaController;
+use App\Http\Controllers\ConfiguracionController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -43,6 +44,7 @@ Route::resources([
     'ventas' => VentaController::class,
     'estado-ventas' => EstadoVentaController::class,
     'reservas' => ReservaController::class,
+    'configuraciones' => ConfiguracionController::class,
 ]);
 
 Route::resource('proveedores', ProveedorController::class)->parameter('proveedores','proveedor');
