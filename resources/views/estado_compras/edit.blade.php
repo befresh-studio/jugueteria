@@ -32,7 +32,7 @@
                     <div class="mb-3 row">
                         <label for="color" class="col-md-4 col-form-label text-md-end text-start">{{ __('Color') }}</label>
                         <div class="col-md-6">
-                          <input type="text" class="form-control @error('color') is-invalid @enderror" id="color" name="color" value="{{ $estado_compra->color }}">
+                          <input type="color" class="form-control form-control-color @error('color') is-invalid @enderror" id="color" name="color" value="{{ $estado_compra->color }}" title="{{ __('Elige un color') }}">
                             @if ($errors->has('color'))
                                 <span class="text-danger">{{ $errors->first('color') }}</span>
                             @endif

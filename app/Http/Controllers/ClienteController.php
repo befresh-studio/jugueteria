@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreClienteRequest;
 use App\Http\Requests\UpdateClienteRequest;
+use Illuminate\Foundation\Http\FormRequest;
 use App\Models\Cliente;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -29,6 +30,17 @@ class ClienteController extends Controller
     {
         return view('clientes.index', [
             'clientes' => Cliente::latest()->paginate(3)
+        ]);
+    }
+
+    /**
+     * Display a listing of the resource filtering.
+     */
+    public function filtrar(FormRequest $request): View
+    {
+        return view('clientes.index', [
+            'clientes' => Cliente::where('nombre', 'like', '%' . $request->filtro. '%')->paginate(10),
+            'filtro' => $request->filtro
         ]);
     }
 

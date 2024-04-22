@@ -1,8 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="card mb-3">
+    <div class="card-header">{{ __('Filtro') }}</div>
+    <div class="card-body">
+        <form name="filtrar_clientes" method="POST" action="{{ route('clientes.filtrar') }}">
+            @csrf
+            <input type="text" name="filtro" placeholder="{{ __('Buscar...') }}" value="{{ $filtro ?? '' }}" />
+            <button type="submit" class="btn btn-outline-primary btn-sm"><i class="bi bi-search"></i> {{ __('Filtrar') }}</button>
+        </form>
+    </div>
+</div>
+
 <div class="card">
-    <div class="card-header">{{ __('Listado de clientes') }}</div>
+    <div class="card-header">{{ __('Listado de clientes') }}@if(isset($filtro)) <strong>{{ __('Filtrando por: "' . $filtro . '"') }}</strong>@endif</div>
     <div class="card-body">
         @can('create-cliente')
             <a href="{{ route('clientes.create') }}" class="btn btn-success btn-sm my-2"><i class="bi bi-plus-circle"></i> {{ __('Insertar nuevo cliente') }}</a>
@@ -47,6 +58,10 @@
 
                             @can('create-reserva')
                                 <a href="{{ route('reservas.createCliente', $cliente->id) }}" class="btn btn-secondary btn-sm"><i class="bi bi-basket2"></i> {{ __('Reserva') }}</a>
+                            @endcan
+
+                            @can('create-venta')
+                                <a href="{{ route('ventas.tpvCliente', $cliente->id) }}" class="btn btn-secondary btn-sm"><i class="bi bi-cart-plus"></i> {{ __('TPV') }}</a>
                             @endcan
                         </form>
                     </td>

@@ -1,8 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="card mb-3">
+    <div class="card-header">{{ __('Filtro') }}</div>
+    <div class="card-body">
+        <form name="filtrar_juguetes" method="POST" action="{{ route('juguetes.filtrar') }}">
+            @csrf
+            <input type="text" name="filtro" placeholder="{{ __('Buscar...') }}" value="{{ $filtro ?? '' }}" />
+            <button type="submit" class="btn btn-outline-primary btn-sm"><i class="bi bi-search"></i> {{ __('Filtrar') }}</button>
+        </form>
+    </div>
+</div>
+
 <div class="card">
-    <div class="card-header">{{ __('Listado de juguetes') }}</div>
+    <div class="card-header">{{ __('Listado de juguetes') }}@if(isset($filtro)) <strong>{{ __('Filtrando por: "' . $filtro . '"') }}</strong>@endif</div>
     <div class="card-body">
         @can('create-juguete')
             <a href="{{ route('juguetes.create') }}" class="btn btn-success btn-sm my-2"><i class="bi bi-plus-circle"></i> {{ __('Insertar nuevo juguete') }}</a>
@@ -21,7 +32,7 @@
             </thead>
             <tbody>
                 @forelse ($juguetes as $juguete)
-                <tr class="{{ ($juguete->stock == 0 ? 'agotado' : '') }}">
+                <tr class="{{ ($juguete->stock <= $umbral_stock ? 'agotado' : '') }}">
                     <th scope="row">{{ $juguete->id }}</th>
                     <td>@foreach ($juguete->categorias as $categoria) {{ $categoria->nombre }}@if(!$loop->last),@endif @endforeach</th>
                     {{--<td><img src="{{ url('storage/'.$juguete->imagen) }}" alt="{{ $juguete->nombre }}" class="img-fluid img-juguete" /></td>--}}

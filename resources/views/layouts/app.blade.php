@@ -65,22 +65,46 @@
                                                 <li><a class="nav-link" href="{{ route('users.index') }}">{{ __('Usuarios') }}</a></li>
                                             @endcanany
                                             @canany(['create-juguete', 'edit-juguete', 'delete-juguete'])
-                                                <li><a class="nav-link" href="{{ route('juguetes.index') }}">{{ __('Juguetes') }}</a></li>
-                                            @endcanany
-                                            @canany(['create-categoria', 'edit-categoria', 'delete-categoria'])
-                                                <li><a class="nav-link" href="{{ route('categorias.index') }}">{{ __('Categorías') }}</a></li>
+                                                <li class="nav-item dropdown">
+                                                    <a id="navbarDropdownJuguetes" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                                        {{ __('Juguetes') }}
+                                                    </a>
+                                                    
+                                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownJuguetes">
+                                                        <a class="dropdown-item" href="{{ route('juguetes.index') }}">{{ __('Juguetes') }}</a>
+                                                        @canany(['create-categoria', 'edit-categoria', 'delete-categoria'])
+                                                            <a class="dropdown-item" href="{{ route('categorias.index') }}">{{ __('Categorías') }}</a>
+                                                        @endcanany
+                                                    </div>
+                                                </li>
                                             @endcanany
                                             @canany(['create-cliente', 'edit-cliente', 'delete-cliente'])
-                                                <li><a class="nav-link" href="{{ route('clientes.index') }}">{{ __('Clientes') }}</a></li>
+                                                <li class="nav-item dropdown">
+                                                    <a id="navbarDropdownClientes" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                                        {{ __('Clientes') }}
+                                                    </a>
+                                                    
+                                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownClientes">
+                                                        <a class="dropdown-item" href="{{ route('clientes.index') }}">{{ __('Clientes') }}</a>
+                                                        @canany(['create-venta', 'edit-venta', 'delete-venta'])
+                                                            <a class="dropdown-item" href="{{ route('ventas.index') }}">{{ __('Ventas') }}</a>
+                                                        @endcanany
+                                                    </div>
+                                                </li>
                                             @endcanany
                                             @canany(['create-proveedor', 'edit-proveedor', 'delete-proveedor'])
-                                                <li><a class="nav-link" href="{{ route('proveedores.index') }}">{{ __('Proveedores') }}</a></li>
-                                            @endcanany
-                                            @canany(['create-compra', 'edit-compra', 'delete-compra'])
-                                                <li><a class="nav-link" href="{{ route('compras.index') }}">{{ __('Compras') }}</a></li>
-                                            @endcanany
-                                            @canany(['create-venta', 'edit-venta', 'delete-venta'])
-                                                <li><a class="nav-link" href="{{ route('ventas.index') }}">{{ __('Ventas') }}</a></li>
+                                                <li class="nav-item dropdown">
+                                                    <a id="navbarDropdownProveedores" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                                        {{ __('Proveedores') }}
+                                                    </a>
+                                                    
+                                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownProveedores">
+                                                        <a class="dropdown-item" href="{{ route('proveedores.index') }}">{{ __('Proveedores') }}</a>
+                                                        @canany(['create-compra', 'edit-compra', 'delete-compra'])
+                                                            <a class="dropdown-item" href="{{ route('compras.index') }}">{{ __('Compras') }}</a>
+                                                        @endcanany
+                                                    </div>
+                                                </li>
                                             @endcanany
                                             <li class="nav-item dropdown">
                                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -88,6 +112,9 @@
                                                 </a>
 
                                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                                    <a class="dropdown-item" href="{{ route('configuraciones.index') }}">
+                                                        {{ __('Configuraciones') }}
+                                                    </a>
                                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                                     onclick="event.preventDefault();
                                                                     document.getElementById('logout-form').submit();">

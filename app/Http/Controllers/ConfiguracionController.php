@@ -35,7 +35,7 @@ class ConfiguracionController extends Controller
      * Show the form for creating a new resource.
      */
     public function create(): View {
-        return view('estado_compras.create');
+        return view('configuraciones.create');
     }
 
     /**

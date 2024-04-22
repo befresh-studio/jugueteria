@@ -59,8 +59,9 @@
                         <label for="iva_aplicado" class="col-md-4 col-form-label text-md-end text-start">{{ __('% IVA') }}</label>
                         <div class="col-md-6">
                             <select class="form-control @error('iva_aplicado') is-invalid @enderror" id="iva_aplicado" name="iva_aplicado">
-                                <option value="0"{{ (0 == old('iva_aplicado') ? ' selected' : '') }}>0%</option>
-                                <option value="21"{{ (21 == old('iva_aplicado') ? ' selected' : '') }}>21%</option>
+                                @foreach($ivas as $iva)
+                                    <option value="{{ $iva->value }}"{{ ($iva->value == old('iva_aplicado') ? ' selected' : '') }}>{{ $iva->value }}%</option>
+                                @endforeach
                             </select>
                             @if ($errors->has('iva_aplicado'))
                                 <span class="text-danger">{{ $errors->first('iva_aplicado') }}</span>

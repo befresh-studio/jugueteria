@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProveedorRequest;
 use App\Http\Requests\UpdateProveedorRequest;
+use Illuminate\Foundation\Http\FormRequest;
 use App\Models\Proveedor;
 use App\Models\Juguete;
 use Illuminate\View\View;
@@ -30,6 +31,17 @@ class ProveedorController extends Controller
     {
         return view('proveedores.index', [
             'proveedores' => Proveedor::latest()->paginate(10)
+        ]);
+    }
+
+    /**
+     * Display a listing of the resource filtering.
+     */
+    public function filtrar(FormRequest $request): View
+    {
+        return view('proveedores.index', [
+            'clientes' => Proveedor::where('nombre', 'like', '%' . $request->filtro. '%')->paginate(10),
+            'filtro' => $request->filtro
         ]);
     }
 

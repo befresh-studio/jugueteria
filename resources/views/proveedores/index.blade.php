@@ -1,8 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="card mb-3">
+    <div class="card-header">{{ __('Filtro') }}</div>
+    <div class="card-body">
+        <form name="filtrar_proveedores" method="POST" action="{{ route('proveedores.filtrar') }}">
+            @csrf
+            <input type="text" name="filtro" placeholder="{{ __('Buscar...') }}" value="{{ $filtro ?? '' }}" />
+            <button type="submit" class="btn btn-outline-primary btn-sm"><i class="bi bi-search"></i> {{ __('Filtrar') }}</button>
+        </form>
+    </div>
+</div>
+
 <div class="card">
-    <div class="card-header">{{ __('Listado de proveedores') }}</div>
+    <div class="card-header">{{ __('Listado de proveedores') }}@if(isset($filtro)) <strong>{{ __('Filtrando por: "' . $filtro . '"') }}</strong>@endif</div>
     <div class="card-body">
         @can('create-proveedor')
             <a href="{{ route('proveedores.create') }}" class="btn btn-success btn-sm my-2"><i class="bi bi-plus-circle"></i> {{ __('Insertar nuevo proveedor') }}</a>

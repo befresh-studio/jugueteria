@@ -48,8 +48,9 @@
                         <label for="iva_aplicado" class="col-md-4 col-form-label text-md-end text-start">{{ __('% IVA') }}</label>
                         <div class="col-md-6">
                             <select class="form-control @error('iva_aplicado') is-invalid @enderror" id="iva_aplicado" name="iva_aplicado">
-                                <option value="0"{{ (0 == $venta->iva ? ' selected' : '') }}>0%</option>
-                                <option value="21"{{ (($venta->importe_total - $venta->iva) == ($venta->importe_total / 1.21) ? ' selected' : '') }}>21%</option>
+                                @foreach($ivas as $iva)
+                                    <option value="{{ $iva->value }}"{{ (($venta->importe_total - $venta->iva) == ($venta->importe_total / ((100 / $iva->value) + 1)) ? ' selected' : '') }}>{{ $iva->value }}%</option>
+                                @endforeach
                             </select>
                             @if ($errors->has('iva_aplicado'))
                                 <span class="text-danger">{{ $errors->first('iva_aplicado') }}</span>

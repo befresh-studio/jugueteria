@@ -6,6 +6,7 @@ use App\Http\Requests\StoreCompraRequest;
 use App\Http\Requests\UpdateCompraRequest;
 use App\Models\Compra;
 use App\Models\Proveedor;
+use App\Models\Configuracion;
 use App\Models\Juguete;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -40,9 +41,11 @@ class CompraController extends Controller
     public function create(): View
     {
         $proveedores = Proveedor::all();
+        $ivas = Configuracion::where('key', 'IVA')->get();
 
         return view('compras.create', [
-            'proveedores' => $proveedores
+            'proveedores' => $proveedores,
+            'ivas' => $ivas
         ]);
     }
 
@@ -68,6 +71,12 @@ class CompraController extends Controller
             $juguete->save();
         }
 
+        $estado_inicial = Configuracion::where('key', 'ESTADO_INICIO_COMPRAS')->first();
+
+        if($estado_inicial) {
+            $compra->estados()->attach($estado_inicial->value);
+        }
+
         return redirect()->route('compras.index')->withSuccess('Nueva compra creada correctamente.');
     }
 
@@ -87,10 +96,12 @@ class CompraController extends Controller
     public function edit(Compra $compra): View
     {
         $proveedores = Proveedor::all();
+        $ivas = Configuracion::where('key', 'IVA')->get();
 
         return view('compras.edit', [
             'compra' => $compra,
-            'proveedores' => $proveedores
+            'proveedores' => $proveedores,
+            'ivas' => $ivas
         ]);
     }
 

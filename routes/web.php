@@ -44,13 +44,19 @@ Route::resources([
     'ventas' => VentaController::class,
     'estado-ventas' => EstadoVentaController::class,
     'reservas' => ReservaController::class,
-    'configuraciones' => ConfiguracionController::class,
 ]);
 
 Route::resource('proveedores', ProveedorController::class)->parameter('proveedores','proveedor');
+Route::resource('configuraciones', ConfiguracionController::class)->parameter('configuraciones','configuracion');
 
 Route::get('ventas/add_juguete/{num_juguete}', [VentaController::class, 'addJuguete'])->name('add_juguete');
+Route::post('ventas/add_juguete/{num_juguete}', [VentaController::class, 'addJugueteRef'])->name('add_jugueteRef');
 Route::get('compras/add_juguete/{num_juguete}/{proveedor}', [CompraController::class, 'addJuguete'])->name('add_juguete_compra');
 
 Route::get('ventas/create/{cliente}', [VentaController::class, 'create'])->name('ventas.createCliente');
+Route::get('ventas/tpv/{cliente}', [VentaController::class, 'tpv'])->name('ventas.tpvCliente');
 Route::get('reservas/create/{cliente}', [ReservaController::class, 'create'])->name('reservas.createCliente');
+
+Route::post('juguetes/filtrar', [JugueteController::class, 'filtrar'])->name('juguetes.filtrar');
+Route::post('clientes/filtrar', [ClienteController::class, 'filtrar'])->name('clientes.filtrar');
+Route::post('proveedores/filtrar', [ProveedorController::class, 'filtrar'])->name('proveedores.filtrar');

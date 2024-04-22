@@ -6,10 +6,12 @@ use App\Http\Requests\StoreVentaRequest;
 use App\Http\Requests\UpdateVentaRequest;
 use App\Models\Cliente;
 use App\Models\Juguete;
+use App\Models\Configuracion;
 use App\Models\Venta;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class VentaController extends Controller
 {
@@ -42,11 +44,27 @@ class VentaController extends Controller
     {
         $clientes = Cliente::all();
         $juguetes = Juguete::all();
+        $ivas = Configuracion::where('key', 'IVA')->get();
 
         return view('ventas.create', [
             'clientes' => $clientes,
             'cliente' => $cliente,
             'juguetes' => $juguetes,
+            'ivas' => $ivas
+        ]);
+    }
+
+    /**
+     * Show the TPV form for creating a new resource.
+     */
+    public function tpv(Cliente $cliente = NULL): View
+    {
+        $clientes = Cliente::all();
+        $ivas = Configuracion::where('key', 'IVA')->get();
+
+        return view('ventas.tpv', [
+            'cliente' => $cliente,
+            'ivas' => $ivas
         ]);
     }
 
@@ -72,6 +90,12 @@ class VentaController extends Controller
             $juguete->save();
         }
 
+        $estado_inicial = Configuracion::where('key', 'ESTADO_INICIO_VENTAS')->first();
+
+        if($estado_inicial) {
+            $venta->estados()->attach($estado_inicial->value);
+        }
+
         return redirect()->route('ventas.index')->withSuccess('Nueva venta creada correctamente.');
     }
 
@@ -92,11 +116,13 @@ class VentaController extends Controller
     {
         $clientes = Cliente::all();
         $juguetes = Juguete::all();
+        $ivas = Configuracion::where('key', 'IVA')->get();
 
         return view('ventas.edit', [
             'venta' => $venta,
             'clientes' => $clientes,
-            'juguetes' => $juguetes
+            'juguetes' => $juguetes,
+            'ivas' => $ivas
         ]);
     }
 
@@ -124,6 +150,16 @@ class VentaController extends Controller
         return view('ventas.add_juguete', [
             'num_juguete' => $num_juguete,
             'juguetes' => $juguetes
+        ]);
+    }
+
+    public function addJugueteRef(int $num_juguete, Request $request): JsonResponse {
+        $juguete = Juguete::where('referencia', 'like', $request->ref_juguete)->first();
+
+        return response()->json([
+            'success' => (isset($juguete) && $juguete->stock > 0 ? true : false),
+            'message' => (!isset($juguete) ? 'La referencia introducida no existe' : ($juguete->stock <= 0 ? 'No hay stock suficiente' : 'ERROR')),
+            'html' => (isset($juguete) && $juguete->stock > 0 ? view('ventas.add_jugueteTPV', ['num_juguete' => $num_juguete, 'juguete' => $juguete])->render() : '')
         ]);
     }
 }

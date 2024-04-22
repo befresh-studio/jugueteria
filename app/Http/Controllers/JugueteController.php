@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreJugueteRequest;
 use App\Http\Requests\UpdateJugueteRequest;
+use Illuminate\Foundation\Http\FormRequest;
 use App\Models\Categoria;
+use App\Models\Configuracion;
 use App\Models\Juguete;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -28,8 +30,25 @@ class JugueteController extends Controller
      */
     public function index(): View
     {
+        $umbral_stock = Configuracion::where('key', 'UMBRAL_STOCK')->first();
+
         return view('juguetes.index', [
-            'juguetes' => Juguete::latest()->paginate(10)
+            'juguetes' => Juguete::latest()->paginate(10),
+            'umbral_stock' => ($umbral_stock ? $umbral_stock->value : 0)
+        ]);
+    }
+
+    /**
+     * Display a listing of the resource filtering.
+     */
+    public function filtrar(FormRequest $request): View
+    {
+        $umbral_stock = Configuracion::where('key', 'UMBRAL_STOCK')->first();
+
+        return view('juguetes.index', [
+            'juguetes' => Juguete::where('nombre', 'like', '%' . $request->filtro. '%')->paginate(10),
+            'umbral_stock' => ($umbral_stock ? $umbral_stock->value : 0),
+            'filtro' => $request->filtro
         ]);
     }
 

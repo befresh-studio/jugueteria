@@ -23,18 +23,22 @@
                     <td>{{ $configuracion->key }}</td>
                     <td>{{ $configuracion->value }}</td>
                     <td>
-                        <form action="{{ route('configuraciones.destroy', $configuracion->id) }}" method="post">
-                            @csrf
-                            @method('DELETE')
+                        @if(!in_array($configuracion->key, ['IVA', 'ESTADO_INICIO_VENTAS', 'ESTADO_INICIO_COMPRAS', 'ESTADO_FINAL_COMPRAS', 'ESTADO_FINAL_VENTAS', 'UMBRAL_STOCK']))
+                            <form action="{{ route('configuraciones.destroy', $configuracion->id) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                        @endif
 
                             @can('edit-configuraciones')
                                 <a href="{{ route('configuraciones.edit', $configuracion->id) }}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> {{ __('Editar') }}</a>
                             @endcan
 
-                            @can('delete-configuraciones')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('{{ __('¿Quieres borrar este valor de configuración?') }}');"><i class="bi bi-trash"></i> {{ __('Borrar') }}</button>
-                            @endcan
-                        </form>
+                        @if(!in_array($configuracion->key, ['IVA', 'ESTADO_INICIO_VENTAS', 'ESTADO_INICIO_COMPRAS', 'ESTADO_FINAL_COMPRAS', 'ESTADO_FINAL_VENTAS', 'UMBRAL_STOCK']))
+                                @can('delete-configuraciones')
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('{{ __('¿Quieres borrar este valor de configuración?') }}');"><i class="bi bi-trash"></i> {{ __('Borrar') }}</button>
+                                @endcan
+                            </form>
+                        @endif
                     </td>
                 </tr>
                 @empty

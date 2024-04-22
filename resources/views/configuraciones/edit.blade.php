@@ -22,7 +22,7 @@
                     <div class="mb-3 row">
                         <label for="key" class="col-md-4 col-form-label text-md-end text-start">{{ __('Clave') }}</label>
                         <div class="col-md-6">
-                          <input type="text" class="form-control @error('key') is-invalid @enderror" id="key" name="key" value="{{ $configuracion->key }}">
+                          <input type="text" class="form-control @error('key') is-invalid @enderror" id="key" name="key" value="{{ $configuracion->key }}"@if(in_array($configuracion->key, ['IVA', 'ESTADO_INICIO_VENTAS', 'ESTADO_INICIO_COMPRAS', 'ESTADO_FINAL_COMPRAS', 'ESTADO_FINAL_VENTAS', 'UMBRAL_STOCK'])) readonly="readonly"@endif>
                             @if ($errors->has('key'))
                                 <span class="text-danger">{{ $errors->first('key') }}</span>
                             @endif
