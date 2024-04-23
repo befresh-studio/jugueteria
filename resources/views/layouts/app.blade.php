@@ -89,6 +89,9 @@
                                                         @canany(['create-venta', 'edit-venta', 'delete-venta'])
                                                             <a class="dropdown-item" href="{{ route('ventas.index') }}">{{ __('Ventas') }}</a>
                                                         @endcanany
+                                                        @canany(['create-reserva', 'edit-reserva', 'delete-reserva'])
+                                                            <a class="dropdown-item" href="{{ route('reservas.index') }}">{{ __('Reservas') }}</a>
+                                                        @endcanany
                                                     </div>
                                                 </li>
                                             @endcanany
