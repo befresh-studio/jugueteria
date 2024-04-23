@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Cliente;
+use App\Models\Venta;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -25,7 +27,10 @@ class HomeController extends Controller
     public function index()
     {
         if(Auth::user())
-            return view('home');
+            return view('home', [
+                'clientes' => Cliente::latest()->paginate(5),
+                'ventas' => Venta::latest()->paginate(5),
+            ]);
         else
             return redirect()->route('login');
     }

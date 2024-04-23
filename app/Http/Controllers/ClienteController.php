@@ -29,7 +29,7 @@ class ClienteController extends Controller
     public function index(): View
     {
         return view('clientes.index', [
-            'clientes' => Cliente::latest()->paginate(3)
+            'clientes' => Cliente::latest()->paginate(10)
         ]);
     }
 

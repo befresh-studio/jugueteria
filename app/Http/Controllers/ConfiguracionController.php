@@ -16,10 +16,10 @@ class ConfiguracionController extends Controller
     public function __construct()
     {
        $this->middleware('auth');
-       $this->middleware('permission:create-estado_compra|edit-estado_compra|delete-estado_compra', ['only' => ['index','show']]);
-       $this->middleware('permission:create-estado_compra', ['only' => ['create','store']]);
-       $this->middleware('permission:edit-estado_compra', ['only' => ['edit','update']]);
-       $this->middleware('permission:delete-estado_compra', ['only' => ['destroy']]);
+       $this->middleware('permission:create-configuraciones|edit-configuraciones|delete-configuraciones', ['only' => ['index','show']]);
+       $this->middleware('permission:create-configuraciones', ['only' => ['create','store']]);
+       $this->middleware('permission:edit-configuraciones', ['only' => ['edit','update']]);
+       $this->middleware('permission:delete-configuraciones', ['only' => ['destroy']]);
     }
 
     /**
