@@ -33,6 +33,30 @@
                             @endif
                         </div>
                     </div>
+
+                    <div class="mb-3 row">
+                        <label for="iva_aplicado" class="col-md-4 col-form-label text-md-end text-start">{{ __('% IVA') }}</label>
+                        <div class="col-md-6">
+                            <select class="form-control @error('iva_aplicado') is-invalid @enderror" id="iva_aplicado" name="iva_aplicado">
+                                @foreach($ivas as $iva)
+                                    <option value="{{ $iva->value }}"{{ (($reserva->importe_total - $reserva->iva_total) == ($reserva->importe_total / ((100 / $iva->value) + 1)) ? ' selected' : '') }}>{{ $iva->value }}%</option>
+                                @endforeach
+                            </select>
+                            @if ($errors->has('iva_aplicado'))
+                                <span class="text-danger">{{ $errors->first('iva_aplicado') }}</span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="iva" class="col-md-4 col-form-label text-md-end text-start">{{ __('IVA') }}</label>
+                        <div class="col-md-6">
+                          <input type="text" class="form-control decimal @error('iva') is-invalid @enderror" id="iva" name="iva" value="{{ $reserva->iva_total }}">
+                            @if ($errors->has('iva'))
+                                <span class="text-danger">{{ $errors->first('iva') }}</span>
+                            @endif
+                        </div>
+                    </div>
                     
                     <div class="mb-3 row">
                         <label for="importe_total" class="col-md-4 col-form-label text-md-end text-start">{{ __('Importe total') }}</label>

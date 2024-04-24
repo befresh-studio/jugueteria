@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateReservaRequest;
 use App\Models\Cliente;
 use App\Models\Juguete;
 use App\Models\Reserva;
+use App\Models\Configuracion;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 
@@ -41,11 +42,13 @@ class ReservaController extends Controller
     {
         $clientes = Cliente::all();
         $juguetes = Juguete::all();
+        $ivas = Configuracion::where('key', 'IVA')->get();
 
         return view('reservas.create', [
             'clientes' => $clientes,
             'juguetes' => $juguetes,
             'cliente' => $cliente,
+            'ivas' => $ivas
         ]);
     }
 
@@ -91,11 +94,13 @@ class ReservaController extends Controller
     {
         $clientes = Cliente::all();
         $juguetes = Juguete::all();
+        $ivas = Configuracion::where('key', 'IVA')->get();
 
         return view('reservas.edit', [
             'reserva' => $reserva,
             'clientes' => $clientes,
-            'juguetes' => $juguetes
+            'juguetes' => $juguetes,
+            'ivas' => $ivas
         ]);
     }
 

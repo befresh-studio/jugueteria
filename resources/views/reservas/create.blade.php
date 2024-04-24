@@ -40,11 +40,22 @@
                         <label for="iva_aplicado" class="col-md-4 col-form-label text-md-end text-start">{{ __('% IVA') }}</label>
                         <div class="col-md-6">
                             <select class="form-control @error('iva_aplicado') is-invalid @enderror" id="iva_aplicado" name="iva_aplicado">
-                                <option value="0"{{ (0 == old('iva_aplicado') ? ' selected' : '') }}>0%</option>
-                                <option value="21"{{ (21 == old('iva_aplicado') ? ' selected' : '') }}>21%</option>
+                                @foreach($ivas as $iva)
+                                    <option value="{{ $iva->value }}"{{ ($iva->value == old('iva_aplicado') ? ' selected' : '') }}>{{ $iva->value }}%</option>
+                                @endforeach
                             </select>
                             @if ($errors->has('iva_aplicado'))
                                 <span class="text-danger">{{ $errors->first('iva_aplicado') }}</span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="iva" class="col-md-4 col-form-label text-md-end text-start">{{ __('IVA') }}</label>
+                        <div class="col-md-6">
+                          <input type="text" class="form-control decimal @error('iva') is-invalid @enderror" id="iva" name="iva_total" value="{{ (old('iva') ?? 0) }}">
+                            @if ($errors->has('iva'))
+                                <span class="text-danger">{{ $errors->first('iva') }}</span>
                             @endif
                         </div>
                     </div>
@@ -99,7 +110,7 @@
                     <a href="#" id="add_juguete" class="btn btn-success btn-sm my-2"><i class="bi bi-plus-circle"></i> {{ __('Añadir juguete') }}</a>
                     
                     <div class="mb-3 row">
-                        <input type="submit" class="col-md-3 offset-md-5 btn btn-primary" value="{{ __('Insertar juguete') }}">
+                        <input type="submit" class="col-md-3 offset-md-5 btn btn-primary" value="{{ __('Insertar reserva') }}">
                     </div>
                     
                 </form>

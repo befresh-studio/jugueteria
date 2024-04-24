@@ -12,7 +12,8 @@ class Reserva extends Model
     protected $fillable = [
         'importe_total',
         'importe_pagado',
-        'clientes_id'
+        'clientes_id',
+        'iva_total'
     ];
 
     public function cliente() {
