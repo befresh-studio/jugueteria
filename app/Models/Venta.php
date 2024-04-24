@@ -21,7 +21,7 @@ class Venta extends Model
     }
 
     public function estados() {
-        return $this->belongsToMany(EstadoVenta::class);
+        return $this->belongsToMany(EstadoVenta::class, 'estados_ventas_ventas', 'ventas_id', 'estado_ventas_id');
     }
 
     public function juguetes() {

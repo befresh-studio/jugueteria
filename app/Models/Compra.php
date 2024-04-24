@@ -26,6 +26,6 @@ class Compra extends Model
     }
 
     public function estados() {
-        return $this->belongsToMany(EstadoCompra::class);
+        return $this->belongsToMany(EstadoCompra::class, 'compras_estados_compras', 'compras_id', 'estado_compras_id');
     }
 }
