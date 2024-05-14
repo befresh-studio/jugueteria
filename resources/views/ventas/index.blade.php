@@ -17,6 +17,7 @@
                     <th scope="col">{{ __('Cliente') }}</th>
                     <th scope="col">{{ __('IVA') }}</th>
                     <th scope="col">{{ __('Importe total') }}</th>
+                    <th scope="col">{{ __('Estado actual') }}</th>
                     <th scope="col">{{ __('Acciones') }}</th>
                 </tr>
             </thead>
@@ -26,8 +27,24 @@
                         <th scope="row">{{ $venta->id }}</th>
                         <td>{{ $venta->referencia }}</td>
                         <td>{{ $venta->cliente->nombre }} {{ $venta->cliente->apellidos }}</td>
-                        <td>{{ $venta->iva }}</td>
-                        <td>{{ $venta->importe_total }}</td>
+                        <td>{{ number_format($venta->iva, 2, ',') }}€</td>
+                        <td>{{ number_format($venta->importe_total, 2, ',') }}€</td>
+                        <td>
+                            <div class="dropdown">
+                                <a id="dropdownEstadoVenta{{ $venta->id }}" class="cambiar-estado dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre="">
+                                    <span class="estado" style="background-color:{{ $venta->estados->first()->color }}">{{ $venta->estados->first()->estado }}</span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownEstadoVenta{{ $venta->id }}">
+                                    @foreach($estados as $estado)
+                                        @if($estado->id != $venta->estados->first()->id)
+                                            <a class="dropdown-item" href="{{ route('ventas.cambiarEstado', ['venta' => $venta, 'id_estado' => $estado->id])}}">{{ $estado->estado }}</a>
+                                        @else
+                                            <span class="dropdown-item disabled">{{ $estado->estado }}</span>
+                                        @endif
+                                    @endforeach
+                                </div>
+                            </div>
+                        </td>
                         <td>
                             <form action="{{ route('ventas.destroy', $venta->id) }}" method="post">
                                 @csrf

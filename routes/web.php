@@ -55,8 +55,12 @@ Route::get('compras/add_juguete/{num_juguete}/{proveedor}', [CompraController::c
 
 Route::get('ventas/create/{cliente}', [VentaController::class, 'create'])->name('ventas.createCliente');
 Route::get('ventas/tpv/{cliente}', [VentaController::class, 'tpv'])->name('ventas.tpvCliente');
+Route::get('ventas/cambiar-estado/{venta}/{id_estado}', [VentaController::class, 'cambiarEstado'])->name('ventas.cambiarEstado');
+Route::get('compras/cambiar-estado/{compra}/{id_estado}', [CompraController::class, 'cambiarEstado'])->name('compras.cambiarEstado');
 Route::get('reservas/create/{cliente}', [ReservaController::class, 'create'])->name('reservas.createCliente');
 
 Route::post('juguetes/filtrar', [JugueteController::class, 'filtrar'])->name('juguetes.filtrar');
 Route::post('clientes/filtrar', [ClienteController::class, 'filtrar'])->name('clientes.filtrar');
 Route::post('proveedores/filtrar', [ProveedorController::class, 'filtrar'])->name('proveedores.filtrar');
+Route::post('ventas/cambiar-estado', [VentaController::class, 'cambiarEstadoPost'])->name('ventas.cambiarEstadoPost');
+Route::post('compras/cambiar-estado', [CompraController::class, 'cambiarEstadoPost'])->name('compras.cambiarEstadoPost');

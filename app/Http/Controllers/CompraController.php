@@ -7,8 +7,10 @@ use App\Http\Requests\UpdateCompraRequest;
 use App\Models\Compra;
 use App\Models\Proveedor;
 use App\Models\Configuracion;
+use App\Models\EstadoCompra;
 use App\Models\Juguete;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 
 class CompraController extends Controller
@@ -30,8 +32,11 @@ class CompraController extends Controller
      */
     public function index(): View
     {
+        $estados = EstadoCompra::all();
+
         return view('compras.index', [
-            'compras' => Compra::latest()->paginate(3)
+            'compras' => Compra::latest()->paginate(3),
+            'estados' => $estados
         ]);
     }
 
@@ -85,8 +90,11 @@ class CompraController extends Controller
      */
     public function show(Compra $compra): View
     {
+        $estados = EstadoCompra::all();
+
         return view('compras.show', [
-            'compra' => $compra
+            'compra' => $compra,
+            'estados' => $estados
         ]);
     }
 
@@ -130,5 +138,29 @@ class CompraController extends Controller
             'num_juguete' => $num_juguete,
             'juguetes' => $juguetes
         ]);
+    }
+
+    public function cambiarEstado(Compra $compra, int $id_estado): View {
+        $compra->estados()->attach($id_estado);
+
+        $estados = EstadoCompra::all();
+
+        return view('compras.index', [
+            'compras' => Compra::latest()->paginate(10),
+            'estados' => $estados
+        ])->with('success', 'Estado actualizado correctamente.');
+    }
+
+    public function cambiarEstadoPost(Request $request): View {
+        $compra = Compra::find($request->id_compra);
+        
+        $compra->estados()->attach($request->estado);
+
+        $estados = EstadoCompra::all();
+
+        return view('compras.show', [
+            'compra' => $compra,
+            'estados' => $estados
+        ])->with('success', 'Estado actualizado correctamente.');
     }
 }

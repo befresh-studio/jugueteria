@@ -27,6 +27,22 @@
     font-style: normal;
 }
 
+@mixin text-contrast($n) {
+    $color-brightness: round(
+        (red($n) * 299) + (green($n) * 587) + (blue($n) * 114) / 1000
+    );
+    $light-color: round(
+        (red(#ffffff) * 299) + (green(#ffffff) * 587) + (blue(#ffffff) * 114) /
+            1000
+    );
+
+    @if abs($color-brightness) < ($light-color/2) {
+        color: white;
+    } @else {
+        color: black;
+    }
+}
+
 // Variables
 @import "variables";
 
@@ -51,6 +67,19 @@ header {
 
 tr.agotado td {
     background-color: #eb5867;
+}
+
+td {
+    div.dropdown a.cambiar-estado {
+        text-decoration: none;
+        color: #000;
+    }
+    span.estado {
+        padding: 5px 10px;
+        border-radius: 4px;
+        //color: #000;
+        @include text-contrast(#000);
+    }
 }
 
 footer {

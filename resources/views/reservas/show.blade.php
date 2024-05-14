@@ -26,14 +26,21 @@
                 <div class="row">
                     <label for="importe_total" class="col-md-4 col-form-label text-md-end text-start"><strong>{{ __('Importe total') }}:</strong></label>
                     <div class="col-md-6" style="line-height: 35px;">
-                        {{ $reserva->importe_total }}
+                        {{ number_format($reserva->importe_total, 2, ',') }}€
                     </div>
                 </div>
 
                 <div class="row">
                     <label for="importe_pagado" class="col-md-4 col-form-label text-md-end text-start"><strong>{{ __('Importe pagado') }}:</strong></label>
                     <div class="col-md-6" style="line-height: 35px;">
-                        {{ $reserva->importe_pagado }}
+                        {{ number_format($reserva->importe_pagado, 2, ',') }}€
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label for="importe_pagado" class="col-md-4 col-form-label text-md-end text-start"><strong>{{ __('Importe pendiente') }}:</strong></label>
+                    <div class="col-md-6" style="line-height: 35px;">
+                        {{ number_format($reserva->importe_total - $reserva->importe_pagado, 2, ',') }}€
                     </div>
                 </div>
         
@@ -75,21 +82,21 @@
                     <div class="row">
                         <label for="precio_unitario_{{ ($loop->index + 1) }}" class="col-md-4 col-form-label text-md-end text-start"><strong>{{ __('Precio unitario') }}:</strong></label>
                         <div class="col-md-6" style="line-height: 35px;">
-                            {{ $juguete->pivot->precio_unitario }}
+                            {{ number_format($juguete->pivot->precio_unitario, 2, ',') }}€
                         </div>
                     </div>
 
                     <div class="row">
                         <label for="iva_total_{{ ($loop->index + 1) }}" class="col-md-4 col-form-label text-md-end text-start"><strong>{{ __('IVA total') }}:</strong></label>
                         <div class="col-md-6" style="line-height: 35px;">
-                            {{ $juguete->pivot->iva_total }}
+                            {{ number_format($juguete->pivot->iva_total, 2, ',') }}€
                         </div>
                     </div>
 
                     <div class="row">
                         <label for="importe_total_{{ ($loop->index + 1) }}" class="col-md-4 col-form-label text-md-end text-start"><strong>{{ __('Importe total') }}:</strong></label>
                         <div class="col-md-6" style="line-height: 35px;">
-                            {{ $juguete->pivot->importe_total }}
+                            {{ number_format($juguete->pivot->importe_total, 2, ',') }}€
                         </div>
                     </div>
                 @endforeach

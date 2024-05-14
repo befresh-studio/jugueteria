@@ -7,6 +7,8 @@ use App\Http\Requests\UpdateVentaRequest;
 use App\Models\Cliente;
 use App\Models\Juguete;
 use App\Models\Configuracion;
+use App\Models\EstadoCompra;
+use App\Models\EstadoVenta;
 use App\Models\Venta;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -32,8 +34,11 @@ class VentaController extends Controller
      */
     public function index(): View
     {
+        $estados = EstadoVenta::all();
+
         return view('ventas.index', [
-            'ventas' => Venta::with('cliente')->latest()->paginate(10)
+            'ventas' => Venta::with('cliente')->latest()->paginate(10),
+            'estados' => $estados
         ]);
     }
 
@@ -59,7 +64,6 @@ class VentaController extends Controller
      */
     public function tpv(Cliente $cliente = NULL): View
     {
-        $clientes = Cliente::all();
         $ivas = Configuracion::where('key', 'IVA')->get();
 
         return view('ventas.tpv', [
@@ -104,8 +108,11 @@ class VentaController extends Controller
      */
     public function show(Venta $venta): View
     {
+        $estados = EstadoVenta::all();
+
         return view('ventas.show', [
-            'venta' => $venta
+            'venta' => $venta,
+            'estados' => $estados
         ]);
     }
 
@@ -161,5 +168,29 @@ class VentaController extends Controller
             'message' => (!isset($juguete) ? 'La referencia introducida no existe' : ($juguete->stock <= 0 ? 'No hay stock suficiente' : 'ERROR')),
             'html' => (isset($juguete) && $juguete->stock > 0 ? view('ventas.add_jugueteTPV', ['num_juguete' => $num_juguete, 'juguete' => $juguete])->render() : '')
         ]);
+    }
+
+    public function cambiarEstado(Venta $venta, int $id_estado): RedirectResponse {
+        $venta->estados()->attach($id_estado);
+
+        $estados = EstadoVenta::all();
+
+        return redirect()->route('ventas.index', [
+            'ventas' => Venta::with('cliente')->latest()->paginate(10),
+            'estados' => $estados
+        ])->withSuccess('Estado actualizado correctamente.');
+    }
+
+    public function cambiarEstadoPost(Request $request): RedirectResponse {
+        $venta = Venta::find($request->id_venta);
+        
+        $venta->estados()->attach($request->estado);
+
+        $estados = EstadoVenta::all();
+
+        return redirect()->route('ventas.show', [
+            'venta' => $venta,
+            'estados' => $estados
+        ])->withSuccess('Estado actualizado correctamente.');
     }
 }

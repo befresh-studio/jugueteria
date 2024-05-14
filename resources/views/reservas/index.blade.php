@@ -14,6 +14,7 @@
                     <th scope="col">{{ __('Cliente') }}</th>
                     <th scope="col">{{ __('Importe pagado') }}</th>
                     <th scope="col">{{ __('Importe total') }}</th>
+                    <th scope="col">{{ __('Importe pendiente') }}</th>
                     <th scope="col">{{ __('Acciones') }}</th>
                 </tr>
             </thead>
@@ -22,8 +23,9 @@
                 <tr>
                     <th scope="row">{{ $reserva->id }}</th>
                     <td>{{ $reserva->cliente->nombre }} {{ $reserva->cliente->apellidos }}</td>
-                    <td>{{ $reserva->importe_pagado }}</td>
-                    <td>{{ $reserva->importe_total }}</td>
+                    <td>{{ number_format($reserva->importe_pagado, 2, ',') }}€</td>
+                    <td>{{ number_format($reserva->importe_total, 2, ',') }}€</td>
+                    <td>{{ number_format($reserva->importe_total - $reserva->importe_pagado, 2, ',') }}€</td>
                     <td>
                         <form action="{{ route('reservas.destroy', $reserva->id) }}" method="post">
                             @csrf

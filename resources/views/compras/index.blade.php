@@ -18,6 +18,7 @@
                     <th scope="col">{{ __('Fecha entrega') }}</th>
                     <th scope="col">{{ __('IVA') }}</th>
                     <th scope="col">{{ __('Importe total') }}</th>
+                    <th scope="col">{{ __('Estado actual') }}</th>
                     <th scope="col">{{ __('Acciones') }}</th>
                 </tr>
             </thead>
@@ -27,9 +28,25 @@
                     <th scope="row">{{ $compra->id }}</th>
                     <td>{{ $compra->referencia }}</td>
                     <td>{{ $compra->proveedor->nombre }}</td>
-                    <td>{{ $compra->fecha_entrega }}</td>
-                    <td>{{ $compra->iva }}</td>
-                    <td>{{ $compra->importe_total }}</td>
+                    <td>{{ \Carbon\Carbon::parse($compra->fecha_entrega)->format('d/m/Y') }}</td>
+                    <td>{{ number_format($compra->iva, 2, ',') }}€</td>
+                    <td>{{ number_format($compra->importe_total, 2, ',') }}€</td>
+                    <td>
+                        <div class="dropdown">
+                            <a id="dropdownEstadoCompra{{ $compra->id }}" class="cambiar-estado dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre="">
+                                <span class="estado" style="background-color:{{ $compra->estados->first()->color }}">{{ $compra->estados->first()->estado }}</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownEstadoCompra{{ $compra->id }}">
+                                @foreach($estados as $estado)
+                                    @if($estado->id != $compra->estados->first()->id)
+                                        <a class="dropdown-item" href="{{ route('compras.cambiarEstado', ['compra' => $compra, 'id_estado' => $estado->id])}}">{{ $estado->estado }}</a>
+                                    @else
+                                        <span class="dropdown-item disabled">{{ $estado->estado }}</span>
+                                    @endif
+                                @endforeach
+                            </div>
+                        </div>
+                    </td>
                     <td>
                         <form action="{{ route('compras.destroy', $compra->id) }}" method="post">
                             @csrf

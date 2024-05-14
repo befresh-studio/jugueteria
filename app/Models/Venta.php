@@ -21,10 +21,10 @@ class Venta extends Model
     }
 
     public function estados() {
-        return $this->belongsToMany(EstadoVenta::class, 'estados_ventas_ventas', 'ventas_id', 'estado_ventas_id');
+        return $this->belongsToMany(EstadoVenta::class, 'estados_ventas_ventas', 'ventas_id', 'estado_ventas_id')->withTimestamps();
     }
 
     public function juguetes() {
-        return $this->belongsToMany(Juguete::class, 'juguetes_ventas', 'ventas_id', 'juguetes_id')->withPivot('precio_unitario', 'iva_total', 'cantidad', 'importe_total')->withTimestamps();
+        return $this->belongsToMany(Juguete::class, 'juguetes_ventas', 'ventas_id', 'juguetes_id')->withPivot('precio_unitario', 'iva_total', 'cantidad', 'importe_total')->orderBy('created_at', 'desc')->withTimestamps();
     }
 }

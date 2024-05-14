@@ -78,6 +78,16 @@
                         </div>
                     </div>
 
+                    <div class="mb-3 row">
+                        <label for="importe_pendiente" class="col-md-4 col-form-label text-md-end text-start">{{ __('Importe pendiente') }}</label>
+                        <div class="col-md-6">
+                          <input type="text" class="form-control @error('importe_pendiente') is-invalid @enderror" id="importe_pendiente" name="importe_pendiente" value="{{ ($reserva->importe_total - $reserva->importe_pagado) }}">
+                            @if ($errors->has('importe_pendiente'))
+                                <span class="text-danger">{{ $errors->first('importe_pendiente') }}</span>
+                            @endif
+                        </div>
+                    </div>
+
                     <div id="juguetes">
                         <h3>{{ __('Juguetes') }}</h3>
                         <hr />
@@ -143,9 +153,20 @@
 
             $("#iva").val(iva.toFixed(2));
             $("#importe_total").val(importe_total.toFixed(2));
+
+            var importe_pagado = $("#importe_pagado").val();
+
+            $("#importe_pendiente").val((importe_total - importe_pagado).toFixed(2));
         }
 
         window.onload = function(){
+            $("#importe_pagado").on('change', function(e) {
+                var importe_total = $("#importe_total").val();
+                var importe_pagado = $("#importe_pagado").val();
+
+                $("#importe_pendiente").val((importe_total - importe_pagado).toFixed(2));
+            });
+
             $("#add_juguete").on('click', function(e) {
                 e.preventDefault();
 
