@@ -54,7 +54,7 @@
             </div>
         </div>
 
-        <div class="card">
+        <div class="card mt-4">
             <div class="card-header">
                 <div class="float-start">
                     {{ __('Juguetes del proveedor') }}
@@ -66,7 +66,7 @@
                     <div class="row">
                         <label for="juguete_{{ $loop->index }}" class="col-md-4 col-form-label text-md-end text-start"><strong>{{ __('Juguete') }} {{ $loop->index + 1 }}:</strong></label>
                         <div class="col-md-6" style="line-height: 35px;">
-                            {{ $juguete->nombre }} ({{ __('último precio de compra:') }} {{ $proveedor->ultimoPrecioCompra($juguete->id) }}€)
+                            {{ $juguete->nombre }} @if($proveedor->ultimoPrecioCompra($juguete->id))({{ __('último precio de compra:') }} {{ number_format($proveedor->ultimoPrecioCompra($juguete->id), 2, ',') }}€)@endif
                         </div>
                     </div>
                 @endforeach

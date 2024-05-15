@@ -29,7 +29,7 @@ class ClienteController extends Controller
     public function index(): View
     {
         return view('clientes.index', [
-            'clientes' => Cliente::latest()->paginate(10)
+            'clientes' => Cliente::latest()->paginate(25)
         ]);
     }
 
@@ -39,7 +39,7 @@ class ClienteController extends Controller
     public function filtrar(FormRequest $request): View
     {
         return view('clientes.index', [
-            'clientes' => Cliente::where('nombre', 'like', '%' . $request->filtro. '%')->paginate(10),
+            'clientes' => Cliente::where('nombre', 'like', '%' . $request->filtro. '%')->orWhere('apellidos', 'like', '%' . $request->filtro . '%')->paginate(25),
             'filtro' => $request->filtro
         ]);
     }

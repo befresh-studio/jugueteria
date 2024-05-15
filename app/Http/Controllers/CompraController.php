@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCompraRequest;
 use App\Http\Requests\UpdateCompraRequest;
+use Illuminate\Foundation\Http\FormRequest;
 use App\Models\Compra;
 use App\Models\Proveedor;
 use App\Models\Configuracion;
@@ -35,7 +36,21 @@ class CompraController extends Controller
         $estados = EstadoCompra::all();
 
         return view('compras.index', [
-            'compras' => Compra::latest()->paginate(3),
+            'compras' => Compra::latest()->paginate(25),
+            'estados' => $estados
+        ]);
+    }
+
+    /**
+     * Display a listing of the resource filtering.
+     */
+    public function filtrar(FormRequest $request): View
+    {
+        $estados = EstadoCompra::all();
+
+        return view('compras.index', [
+            'compras' => Compra::where('referencia', 'like', '%' . $request->filtro. '%')->paginate(25),
+            'filtro' => $request->filtro,
             'estados' => $estados
         ]);
     }
@@ -119,6 +134,24 @@ class CompraController extends Controller
     public function update(UpdateCompraRequest $request, Compra $compra): RedirectResponse
     {
         $compra->update($request->all());
+
+        $compra->juguetes()->detach();
+
+        foreach($request->juguetes as $index => $id_juguete) {
+            $juguete = Juguete::find($id_juguete);
+
+            $cantidad = $request->cantidad[$index];
+            $precio_unitario = $request->precio_unitario[$index];
+            $iva_total = ($precio_unitario * ($request->iva_aplicado / 100)) * $cantidad;
+            $importe_total = ($precio_unitario * ($request->iva_aplicado / 100 + 1)) * $cantidad;
+
+            $compra->juguetes()->attach($id_juguete, ['cantidad' => $cantidad, 'precio_unitario' => $precio_unitario, 'iva_total' => $iva_total, 'importe_total' => $importe_total]);
+
+            $juguete->stock += $cantidad;
+
+            $juguete->save();
+        }
+
         return redirect()->back()->withSuccess('Compra actualizada correctamente.');
     }
 
@@ -146,7 +179,7 @@ class CompraController extends Controller
         $estados = EstadoCompra::all();
 
         return view('compras.index', [
-            'compras' => Compra::latest()->paginate(10),
+            'compras' => Compra::latest()->paginate(25),
             'estados' => $estados
         ])->with('success', 'Estado actualizado correctamente.');
     }

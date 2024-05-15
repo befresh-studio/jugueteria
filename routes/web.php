@@ -62,5 +62,8 @@ Route::get('reservas/create/{cliente}', [ReservaController::class, 'create'])->n
 Route::post('juguetes/filtrar', [JugueteController::class, 'filtrar'])->name('juguetes.filtrar');
 Route::post('clientes/filtrar', [ClienteController::class, 'filtrar'])->name('clientes.filtrar');
 Route::post('proveedores/filtrar', [ProveedorController::class, 'filtrar'])->name('proveedores.filtrar');
+Route::post('ventas/filtrar', [VentaController::class, 'filtrar'])->name('ventas.filtrar');
+Route::post('compras/filtrar', [CompraController::class, 'filtrar'])->name('compras.filtrar');
+
 Route::post('ventas/cambiar-estado', [VentaController::class, 'cambiarEstadoPost'])->name('ventas.cambiarEstadoPost');
 Route::post('compras/cambiar-estado', [CompraController::class, 'cambiarEstadoPost'])->name('compras.cambiarEstadoPost');

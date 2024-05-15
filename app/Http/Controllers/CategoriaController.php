@@ -28,7 +28,7 @@ class CategoriaController extends Controller
     public function index(): View
     {
         return view('categorias.index', [
-            'categorias' => Categoria::latest()->paginate(3)
+            'categorias' => Categoria::latest()->paginate(10)
         ]);
     }
 

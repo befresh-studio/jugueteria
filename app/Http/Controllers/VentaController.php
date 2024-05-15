@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreVentaRequest;
 use App\Http\Requests\UpdateVentaRequest;
+use Illuminate\Foundation\Http\FormRequest;
 use App\Models\Cliente;
 use App\Models\Juguete;
 use App\Models\Configuracion;
@@ -37,7 +38,21 @@ class VentaController extends Controller
         $estados = EstadoVenta::all();
 
         return view('ventas.index', [
-            'ventas' => Venta::with('cliente')->latest()->paginate(10),
+            'ventas' => Venta::with('cliente')->latest()->paginate(25),
+            'estados' => $estados
+        ]);
+    }
+
+    /**
+     * Display a listing of the resource filtering.
+     */
+    public function filtrar(FormRequest $request): View
+    {
+        $estados = EstadoVenta::all();
+
+        return view('ventas.index', [
+            'ventas' => Venta::where('referencia', 'like', '%' . $request->filtro. '%')->paginate(25),
+            'filtro' => $request->filtro,
             'estados' => $estados
         ]);
     }
@@ -139,6 +154,24 @@ class VentaController extends Controller
     public function update(UpdateVentaRequest $request, Venta $venta): RedirectResponse
     {
         $venta->update($request->all());
+
+        $venta->juguetes()->detach();
+
+        foreach($request->juguetes as $index => $id_juguete) {
+            $juguete = Juguete::find($id_juguete);
+
+            $cantidad = $request->cantidad[$index];
+            $precio_unitario = $juguete->precio;
+            $iva_total = ($juguete->precio * ($request->iva_aplicado / 100)) * $request->cantidad[$index];
+            $importe_total = ($juguete->precio * ($request->iva_aplicado / 100 + 1)) * $request->cantidad[$index];
+
+            $venta->juguetes()->attach($id_juguete, ['cantidad' => $cantidad, 'precio_unitario' => $precio_unitario, 'iva_total' => $iva_total, 'importe_total' => $importe_total]);
+
+            $juguete->stock -= $cantidad;
+
+            $juguete->save();
+        }
+
         return redirect()->back()->withSuccess('Venta actualizada correctamente.');
     }
 
@@ -176,7 +209,7 @@ class VentaController extends Controller
         $estados = EstadoVenta::all();
 
         return redirect()->route('ventas.index', [
-            'ventas' => Venta::with('cliente')->latest()->paginate(10),
+            'ventas' => Venta::with('cliente')->latest()->paginate(25),
             'estados' => $estados
         ])->withSuccess('Estado actualizado correctamente.');
     }

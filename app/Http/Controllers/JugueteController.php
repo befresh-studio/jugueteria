@@ -33,7 +33,7 @@ class JugueteController extends Controller
         $umbral_stock = Configuracion::where('key', 'UMBRAL_STOCK')->first();
 
         return view('juguetes.index', [
-            'juguetes' => Juguete::latest()->paginate(10),
+            'juguetes' => Juguete::latest()->paginate(25),
             'umbral_stock' => ($umbral_stock ? $umbral_stock->value : 0)
         ]);
     }
@@ -46,7 +46,7 @@ class JugueteController extends Controller
         $umbral_stock = Configuracion::where('key', 'UMBRAL_STOCK')->first();
 
         return view('juguetes.index', [
-            'juguetes' => Juguete::where('nombre', 'like', '%' . $request->filtro. '%')->paginate(10),
+            'juguetes' => Juguete::where('nombre', 'like', '%' . $request->filtro. '%')->paginate(25),
             'umbral_stock' => ($umbral_stock ? $umbral_stock->value : 0),
             'filtro' => $request->filtro
         ]);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProveedorRequest;
 use App\Http\Requests\UpdateProveedorRequest;
+use App\Models\EstadoCompra;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\Proveedor;
 use App\Models\Juguete;
@@ -29,8 +30,11 @@ class ProveedorController extends Controller
      */
     public function index(): View
     {
+        $estados = EstadoCompra::all();
+
         return view('proveedores.index', [
-            'proveedores' => Proveedor::latest()->paginate(10)
+            'proveedores' => Proveedor::latest()->paginate(10),
+            'estados' => $estados
         ]);
     }
 
@@ -40,7 +44,7 @@ class ProveedorController extends Controller
     public function filtrar(FormRequest $request): View
     {
         return view('proveedores.index', [
-            'clientes' => Proveedor::where('nombre', 'like', '%' . $request->filtro. '%')->paginate(10),
+            'clientes' => Proveedor::where('nombre', 'like', '%' . $request->filtro. '%')->paginate(25),
             'filtro' => $request->filtro
         ]);
     }

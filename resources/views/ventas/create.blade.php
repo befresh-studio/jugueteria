@@ -169,6 +169,7 @@
 
             $(".quitar").on('click', function() {
                 $("#juguete" + $(this).data('num-juguete')).remove();
+                actualizarImportes();
             });
         };
     </script>

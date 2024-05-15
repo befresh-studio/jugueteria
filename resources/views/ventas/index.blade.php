@@ -1,6 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="card mb-3">
+    <div class="card-header">{{ __('Filtro') }}</div>
+    <div class="card-body">
+        <form name="filtrar_ventas" method="POST" action="{{ route('ventas.filtrar') }}">
+            @csrf
+            <input type="text" name="filtro" placeholder="{{ __('Buscar...') }}" value="{{ $filtro ?? '' }}" />
+            <button type="submit" class="btn btn-outline-primary btn-sm"><i class="bi bi-search"></i> {{ __('Filtrar') }}</button>
+        </form>
+    </div>
+</div>
+
 <a href="{{ route('estado-ventas.index') }}" class="btn btn-success btn-sm my-2"><i class="bi bi-flag-fill"></i> {{ __('Ver estados de ventas') }}</a>
 
 <div class="card">

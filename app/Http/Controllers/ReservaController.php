@@ -31,7 +31,7 @@ class ReservaController extends Controller
     public function index(): View
     {
         return view('reservas.index', [
-            'reservas' => Reserva::with('cliente')->latest()->paginate(10)
+            'reservas' => Reserva::with('cliente')->latest()->paginate(25)
         ]);
     }
 

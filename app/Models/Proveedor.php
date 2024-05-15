@@ -20,7 +20,7 @@ class Proveedor extends Model
     ];
 
     public function compras() {
-        return $this->hasMany(Compra::class);
+        return $this->hasMany(Compra::class, 'proveedores_id');
     }
 
     public function juguetes() {
@@ -32,10 +32,14 @@ class Proveedor extends Model
             $q->where('juguetes.id', $id_juguete);
         })->latest()->first();
 
-        foreach($compra->juguetes as $juguete_comprado) {
-            if($juguete_comprado->id == $id_juguete) {
-                return $juguete_comprado->pivot->precio_unitario;
+        if($compra) {
+            foreach($compra->juguetes as $juguete_comprado) {
+                if($juguete_comprado->id == $id_juguete) {
+                    return $juguete_comprado->pivot->precio_unitario;
+                }
             }
+        } else {
+            return NULL;
         }
     }
 }

@@ -102,6 +102,9 @@
                                     <div class="col-md-2">
                                         <input type="number" class="form-control cantidad @error('cantidad') is-invalid @enderror" id="cantidad_{{ $loop->index + 1 }}" name="cantidad[]" value="{{ $juguete_venta->pivot->cantidad }}">
                                     </div>
+                                    <div class="col-md-2">
+                                        <button data-num-juguete="{{ $loop->index + 1 }}" class="btn btn-danger btn-sm quitar" onclick="return confirm('{{ __('¿Quieres quitar este juguete?') }}');"><i class="bi bi-trash"></i> {{ __('Quitar') }}</button>
+                                    </div>
                                 </div>
                             </div>
                         @endforeach
@@ -169,6 +172,7 @@
 
             $(".quitar").on('click', function() {
                 $("#juguete" + $(this).data('num-juguete')).remove();
+                actualizarImportes();
             });
         };
     </script>
