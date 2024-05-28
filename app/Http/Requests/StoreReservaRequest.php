@@ -25,6 +25,7 @@ class StoreReservaRequest extends FormRequest
             'importe_total' => 'required|decimal:2',
             'importe_pagado' => 'required|decimal:2',
             'clientes_id' => 'required|exists:clientes,id',
+            'comentarios' => 'nullable|string|max:2000'
         ];
     }
 }

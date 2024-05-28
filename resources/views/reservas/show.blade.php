@@ -38,9 +38,16 @@
                 </div>
 
                 <div class="row">
-                    <label for="importe_pagado" class="col-md-4 col-form-label text-md-end text-start"><strong>{{ __('Importe pendiente') }}:</strong></label>
+                    <label for="importe_pendiente" class="col-md-4 col-form-label text-md-end text-start"><strong>{{ __('Importe pendiente') }}:</strong></label>
                     <div class="col-md-6" style="line-height: 35px;">
                         {{ number_format($reserva->importe_total - $reserva->importe_pagado, 2, ',') }}€
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label for="comentarios" class="col-md-4 col-form-label text-md-end text-start"><strong>{{ __('Comentarios') }}:</strong></label>
+                    <div class="col-md-6" style="line-height: 35px;">
+                        {{ $reserva->comentarios }}
                     </div>
                 </div>
         

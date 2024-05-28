@@ -13,7 +13,8 @@ class Reserva extends Model
         'importe_total',
         'importe_pagado',
         'clientes_id',
-        'iva_total'
+        'iva_total',
+        'comentarios'
     ];
 
     public function cliente() {

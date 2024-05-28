@@ -88,6 +88,16 @@
                         </div>
                     </div>
 
+                    <div class="mb-3 row">
+                        <label for="comentarios" class="col-md-4 col-form-label text-md-end text-start">{{ __('Comentarios') }}</label>
+                        <div class="col-md-6">
+                          <textarea class="form-control @error('comentarios') is-invalid @enderror" id="comentarios" name="comentarios">{{ $reserva->comentarios }}</textarea>
+                            @if ($errors->has('importe_pendiente'))
+                                <span class="text-danger">{{ $errors->first('importe_pendiente') }}</span>
+                            @endif
+                        </div>
+                    </div>
+
                     <div id="juguetes">
                         <h3>{{ __('Juguetes') }}</h3>
                         <hr />
